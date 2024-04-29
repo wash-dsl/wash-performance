@@ -1,0 +1,685 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" width="1600" height="420" onload="init(evt)" viewBox="0 0 1600 420" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<!-- Flame graph stack visualization. See https://github.com/brendangregg/FlameGraph for latest version, and http://www.brendangregg.com/flamegraphs.html for examples. -->
+<!-- NOTES:  -->
+<defs>
+	<linearGradient id="background" y1="0" y2="1" x1="0" x2="0" >
+		<stop stop-color="#f8f8f8" offset="5%" />
+		<stop stop-color="#e8e8e8" offset="95%" />
+	</linearGradient>
+</defs>
+<style type="text/css">
+	text { font-family:Verdana; font-size:12px; fill:rgb(0,0,0); }
+	#search, #ignorecase { opacity:0.1; cursor:pointer; }
+	#search:hover, #search.show, #ignorecase:hover, #ignorecase.show { opacity:1; }
+	#subtitle { text-anchor:middle; font-color:rgb(160,160,160); }
+	#title { text-anchor:middle; font-size:17px}
+	#unzoom { cursor:pointer; }
+	#frames > *:hover { stroke:black; stroke-width:0.5; cursor:pointer; }
+	.hide { display:none; }
+	.parent { opacity:0.5; }
+</style>
+<script type="text/ecmascript">
+<![CDATA[
+	"use strict";
+	var details, searchbtn, unzoombtn, matchedtxt, svg, searching, currentSearchTerm, ignorecase, ignorecaseBtn;
+	function init(evt) {
+		details = document.getElementById("details").firstChild;
+		searchbtn = document.getElementById("search");
+		ignorecaseBtn = document.getElementById("ignorecase");
+		unzoombtn = document.getElementById("unzoom");
+		matchedtxt = document.getElementById("matched");
+		svg = document.getElementsByTagName("svg")[0];
+		searching = 0;
+		currentSearchTerm = null;
+
+		// use GET parameters to restore a flamegraphs state.
+		var params = get_params();
+		if (params.x && params.y)
+			zoom(find_group(document.querySelector('[x="' + params.x + '"][y="' + params.y + '"]')));
+                if (params.s) search(params.s);
+	}
+
+	// event listeners
+	window.addEventListener("click", function(e) {
+		var target = find_group(e.target);
+		if (target) {
+			if (target.nodeName == "a") {
+				if (e.ctrlKey === false) return;
+				e.preventDefault();
+			}
+			if (target.classList.contains("parent")) unzoom(true);
+			zoom(target);
+			if (!document.querySelector('.parent')) {
+				// we have basically done a clearzoom so clear the url
+				var params = get_params();
+				if (params.x) delete params.x;
+				if (params.y) delete params.y;
+				history.replaceState(null, null, parse_params(params));
+				unzoombtn.classList.add("hide");
+				return;
+			}
+
+			// set parameters for zoom state
+			var el = target.querySelector("rect");
+			if (el && el.attributes && el.attributes.y && el.attributes._orig_x) {
+				var params = get_params()
+				params.x = el.attributes._orig_x.value;
+				params.y = el.attributes.y.value;
+				history.replaceState(null, null, parse_params(params));
+			}
+		}
+		else if (e.target.id == "unzoom") clearzoom();
+		else if (e.target.id == "search") search_prompt();
+		else if (e.target.id == "ignorecase") toggle_ignorecase();
+	}, false)
+
+	// mouse-over for info
+	// show
+	window.addEventListener("mouseover", function(e) {
+		var target = find_group(e.target);
+		if (target) details.nodeValue = "Function: " + g_to_text(target);
+	}, false)
+
+	// clear
+	window.addEventListener("mouseout", function(e) {
+		var target = find_group(e.target);
+		if (target) details.nodeValue = ' ';
+	}, false)
+
+	// ctrl-F for search
+	// ctrl-I to toggle case-sensitive search
+	window.addEventListener("keydown",function (e) {
+		if (e.keyCode === 114 || (e.ctrlKey && e.keyCode === 70)) {
+			e.preventDefault();
+			search_prompt();
+		}
+		else if (e.ctrlKey && e.keyCode === 73) {
+			e.preventDefault();
+			toggle_ignorecase();
+		}
+	}, false)
+
+	// functions
+	function get_params() {
+		var params = {};
+		var paramsarr = window.location.search.substr(1).split('&');
+		for (var i = 0; i < paramsarr.length; ++i) {
+			var tmp = paramsarr[i].split("=");
+			if (!tmp[0] || !tmp[1]) continue;
+			params[tmp[0]]  = decodeURIComponent(tmp[1]);
+		}
+		return params;
+	}
+	function parse_params(params) {
+		var uri = "?";
+		for (var key in params) {
+			uri += key + '=' + encodeURIComponent(params[key]) + '&';
+		}
+		if (uri.slice(-1) == "&")
+			uri = uri.substring(0, uri.length - 1);
+		if (uri == '?')
+			uri = window.location.href.split('?')[0];
+		return uri;
+	}
+	function find_child(node, selector) {
+		var children = node.querySelectorAll(selector);
+		if (children.length) return children[0];
+	}
+	function find_group(node) {
+		var parent = node.parentElement;
+		if (!parent) return;
+		if (parent.id == "frames") return node;
+		return find_group(parent);
+	}
+	function orig_save(e, attr, val) {
+		if (e.attributes["_orig_" + attr] != undefined) return;
+		if (e.attributes[attr] == undefined) return;
+		if (val == undefined) val = e.attributes[attr].value;
+		e.setAttribute("_orig_" + attr, val);
+	}
+	function orig_load(e, attr) {
+		if (e.attributes["_orig_"+attr] == undefined) return;
+		e.attributes[attr].value = e.attributes["_orig_" + attr].value;
+		e.removeAttribute("_orig_"+attr);
+	}
+	function g_to_text(e) {
+		var text = find_child(e, "title").firstChild.nodeValue;
+		return (text)
+	}
+	function g_to_func(e) {
+		var func = g_to_text(e);
+		// if there's any manipulation we want to do to the function
+		// name before it's searched, do it here before returning.
+		return (func);
+	}
+	function update_text(e) {
+		var r = find_child(e, "rect");
+		var t = find_child(e, "text");
+		var w = parseFloat(r.attributes.width.value) -3;
+		var txt = find_child(e, "title").textContent.replace(/\([^(]*\)$/,"");
+		t.attributes.x.value = parseFloat(r.attributes.x.value) + 3;
+
+		// Smaller than this size won't fit anything
+		if (w < 2 * 12 * 0.59) {
+			t.textContent = "";
+			return;
+		}
+
+		t.textContent = txt;
+		var sl = t.getSubStringLength(0, txt.length);
+		// check if only whitespace or if we can fit the entire string into width w
+		if (/^ *$/.test(txt) || sl < w)
+			return;
+
+		// this isn't perfect, but gives a good starting point
+		// and avoids calling getSubStringLength too often
+		var start = Math.floor((w/sl) * txt.length);
+		for (var x = start; x > 0; x = x-2) {
+			if (t.getSubStringLength(0, x + 2) <= w) {
+				t.textContent = txt.substring(0, x) + "..";
+				return;
+			}
+		}
+		t.textContent = "";
+	}
+
+	// zoom
+	function zoom_reset(e) {
+		if (e.attributes != undefined) {
+			orig_load(e, "x");
+			orig_load(e, "width");
+		}
+		if (e.childNodes == undefined) return;
+		for (var i = 0, c = e.childNodes; i < c.length; i++) {
+			zoom_reset(c[i]);
+		}
+	}
+	function zoom_child(e, x, ratio) {
+		if (e.attributes != undefined) {
+			if (e.attributes.x != undefined) {
+				orig_save(e, "x");
+				e.attributes.x.value = (parseFloat(e.attributes.x.value) - x - 10) * ratio + 10;
+				if (e.tagName == "text")
+					e.attributes.x.value = find_child(e.parentNode, "rect[x]").attributes.x.value + 3;
+			}
+			if (e.attributes.width != undefined) {
+				orig_save(e, "width");
+				e.attributes.width.value = parseFloat(e.attributes.width.value) * ratio;
+			}
+		}
+
+		if (e.childNodes == undefined) return;
+		for (var i = 0, c = e.childNodes; i < c.length; i++) {
+			zoom_child(c[i], x - 10, ratio);
+		}
+	}
+	function zoom_parent(e) {
+		if (e.attributes) {
+			if (e.attributes.x != undefined) {
+				orig_save(e, "x");
+				e.attributes.x.value = 10;
+			}
+			if (e.attributes.width != undefined) {
+				orig_save(e, "width");
+				e.attributes.width.value = parseInt(svg.width.baseVal.value) - (10 * 2);
+			}
+		}
+		if (e.childNodes == undefined) return;
+		for (var i = 0, c = e.childNodes; i < c.length; i++) {
+			zoom_parent(c[i]);
+		}
+	}
+	function zoom(node) {
+		var attr = find_child(node, "rect").attributes;
+		var width = parseFloat(attr.width.value);
+		var xmin = parseFloat(attr.x.value);
+		var xmax = parseFloat(xmin + width);
+		var ymin = parseFloat(attr.y.value);
+		var ratio = (svg.width.baseVal.value - 2 * 10) / width;
+
+		// XXX: Workaround for JavaScript float issues (fix me)
+		var fudge = 0.0001;
+
+		unzoombtn.classList.remove("hide");
+
+		var el = document.getElementById("frames").children;
+		for (var i = 0; i < el.length; i++) {
+			var e = el[i];
+			var a = find_child(e, "rect").attributes;
+			var ex = parseFloat(a.x.value);
+			var ew = parseFloat(a.width.value);
+			var upstack;
+			// Is it an ancestor
+			if (0 == 0) {
+				upstack = parseFloat(a.y.value) > ymin;
+			} else {
+				upstack = parseFloat(a.y.value) < ymin;
+			}
+			if (upstack) {
+				// Direct ancestor
+				if (ex <= xmin && (ex+ew+fudge) >= xmax) {
+					e.classList.add("parent");
+					zoom_parent(e);
+					update_text(e);
+				}
+				// not in current path
+				else
+					e.classList.add("hide");
+			}
+			// Children maybe
+			else {
+				// no common path
+				if (ex < xmin || ex + fudge >= xmax) {
+					e.classList.add("hide");
+				}
+				else {
+					zoom_child(e, xmin, ratio);
+					update_text(e);
+				}
+			}
+		}
+		search();
+	}
+	function unzoom(dont_update_text) {
+		unzoombtn.classList.add("hide");
+		var el = document.getElementById("frames").children;
+		for(var i = 0; i < el.length; i++) {
+			el[i].classList.remove("parent");
+			el[i].classList.remove("hide");
+			zoom_reset(el[i]);
+			if(!dont_update_text) update_text(el[i]);
+		}
+		search();
+	}
+	function clearzoom() {
+		unzoom();
+
+		// remove zoom state
+		var params = get_params();
+		if (params.x) delete params.x;
+		if (params.y) delete params.y;
+		history.replaceState(null, null, parse_params(params));
+	}
+
+	// search
+	function toggle_ignorecase() {
+		ignorecase = !ignorecase;
+		if (ignorecase) {
+			ignorecaseBtn.classList.add("show");
+		} else {
+			ignorecaseBtn.classList.remove("show");
+		}
+		reset_search();
+		search();
+	}
+	function reset_search() {
+		var el = document.querySelectorAll("#frames rect");
+		for (var i = 0; i < el.length; i++) {
+			orig_load(el[i], "fill")
+		}
+		var params = get_params();
+		delete params.s;
+		history.replaceState(null, null, parse_params(params));
+	}
+	function search_prompt() {
+		if (!searching) {
+			var term = prompt("Enter a search term (regexp " +
+			    "allowed, eg: ^ext4_)"
+			    + (ignorecase ? ", ignoring case" : "")
+			    + "\nPress Ctrl-i to toggle case sensitivity", "");
+			if (term != null) search(term);
+		} else {
+			reset_search();
+			searching = 0;
+			currentSearchTerm = null;
+			searchbtn.classList.remove("show");
+			searchbtn.firstChild.nodeValue = "Search"
+			matchedtxt.classList.add("hide");
+			matchedtxt.firstChild.nodeValue = ""
+		}
+	}
+	function search(term) {
+		if (term) currentSearchTerm = term;
+
+		var re = new RegExp(currentSearchTerm, ignorecase ? 'i' : '');
+		var el = document.getElementById("frames").children;
+		var matches = new Object();
+		var maxwidth = 0;
+		for (var i = 0; i < el.length; i++) {
+			var e = el[i];
+			var func = g_to_func(e);
+			var rect = find_child(e, "rect");
+			if (func == null || rect == null)
+				continue;
+
+			// Save max width. Only works as we have a root frame
+			var w = parseFloat(rect.attributes.width.value);
+			if (w > maxwidth)
+				maxwidth = w;
+
+			if (func.match(re)) {
+				// highlight
+				var x = parseFloat(rect.attributes.x.value);
+				orig_save(rect, "fill");
+				rect.attributes.fill.value = "rgb(230,0,230)";
+
+				// remember matches
+				if (matches[x] == undefined) {
+					matches[x] = w;
+				} else {
+					if (w > matches[x]) {
+						// overwrite with parent
+						matches[x] = w;
+					}
+				}
+				searching = 1;
+			}
+		}
+		if (!searching)
+			return;
+		var params = get_params();
+		params.s = currentSearchTerm;
+		history.replaceState(null, null, parse_params(params));
+
+		searchbtn.classList.add("show");
+		searchbtn.firstChild.nodeValue = "Reset Search";
+
+		// calculate percent matched, excluding vertical overlap
+		var count = 0;
+		var lastx = -1;
+		var lastw = 0;
+		var keys = Array();
+		for (k in matches) {
+			if (matches.hasOwnProperty(k))
+				keys.push(k);
+		}
+		// sort the matched frames by their x location
+		// ascending, then width descending
+		keys.sort(function(a, b){
+			return a - b;
+		});
+		// Step through frames saving only the biggest bottom-up frames
+		// thanks to the sort order. This relies on the tree property
+		// where children are always smaller than their parents.
+		var fudge = 0.0001;	// JavaScript floating point
+		for (var k in keys) {
+			var x = parseFloat(keys[k]);
+			var w = matches[keys[k]];
+			if (x >= lastx + lastw - fudge) {
+				count += w;
+				lastx = x;
+				lastw = w;
+			}
+		}
+		// display matched percent
+		matchedtxt.classList.remove("hide");
+		var pct = 100 * count / maxwidth;
+		if (pct != 100) pct = pct.toFixed(1)
+		matchedtxt.firstChild.nodeValue = "Matched: " + pct + "%";
+	}
+]]>
+</script>
+<rect x="0.0" y="0" width="1600.0" height="420.0" fill="url(#background)"  />
+<text id="title" x="800.00" y="24" >Flame Chart</text>
+<text id="details" x="10.00" y="403" > </text>
+<text id="unzoom" x="10.00" y="24" class="hide">Reset Zoom</text>
+<text id="search" x="1490.00" y="24" >Search</text>
+<text id="ignorecase" x="1574.00" y="24" >ic</text>
+<text id="matched" x="1490.00" y="403" > </text>
+<g id="frames">
+<g >
+<title>[unknown] (3,808,758,419 samples, 0.36%)</title><rect x="20.7" y="187" width="5.6" height="49.0" fill="rgb(56,205,56)" rx="2" ry="2" />
+<text  x="23.66" y="214.5" ></text>
+</g>
+<g >
+<title>cstone::sort_by_key&lt;unsigned long*, int*, std::less&lt;unsigned long&gt; &gt; (79,902,651 samples, 0.01%)</title><rect x="943.1" y="237" width="0.1" height="49.0" fill="rgb(105,251,105)" rx="2" ry="2" />
+<text  x="946.13" y="264.5" ></text>
+</g>
+<g >
+<title>do_lookup_x (552,321,978 samples, 0.05%)</title><rect x="10.6" y="237" width="0.9" height="49.0" fill="rgb(98,244,98)" rx="2" ry="2" />
+<text  x="13.63" y="264.5" ></text>
+</g>
+<g >
+<title>sphexa::HydroProp&lt;cstone::Domain&lt;unsigned long, double, cstone::CpuTag&gt;, sphexa::SimulationData&lt;double, unsigned long, cstone::CpuTag&gt; &gt;::sync (81,687,239 samples, 0.01%)</title><rect x="26.3" y="37" width="0.2" height="49.0" fill="rgb(66,215,66)" rx="2" ry="2" />
+<text  x="29.35" y="64.5" ></text>
+</g>
+<g >
+<title>scalbnf32 (241,889,452 samples, 0.02%)</title><rect x="668.5" y="187" width="0.4" height="49.0" fill="rgb(106,251,106)" rx="2" ry="2" />
+<text  x="671.51" y="214.5" ></text>
+</g>
+<g >
+<title>sphexa::HydroProp&lt;cstone::Domain&lt;unsigned long, double, cstone::CpuTag&gt;, sphexa::SimulationData&lt;double, unsigned long, cstone::CpuTag&gt; &gt;::step (81,687,239 samples, 0.01%)</title><rect x="26.3" y="87" width="0.2" height="49.0" fill="rgb(74,222,74)" rx="2" ry="2" />
+<text  x="29.35" y="114.5" ></text>
+</g>
+<g >
+<title>gomp_barrier_wait_end (2,391,755,719 samples, 0.23%)</title><rect x="944.5" y="237" width="3.5" height="49.0" fill="rgb(80,228,80)" rx="2" ry="2" />
+<text  x="947.48" y="264.5" ></text>
+</g>
+<g >
+<title>[unknown] (620,543,764,765 samples, 58.60%)</title><rect x="11.5" y="237" width="925.8" height="49.0" fill="rgb(56,205,56)" rx="2" ry="2" />
+<text  x="14.45" y="264.5" >[unknown]</text>
+</g>
+<g >
+<title>_dl_map_object (404,412,502 samples, 0.04%)</title><rect x="10.0" y="237" width="0.6" height="49.0" fill="rgb(102,247,102)" rx="2" ry="2" />
+<text  x="13.02" y="264.5" ></text>
+</g>
+<g >
+<title>std::__introsort_loop&lt;__gnu_cxx::__normal_iterator&lt;std::tuple&lt;unsigned long, unsigned int&gt;*, std::vector&lt;std::tuple&lt;unsigned long, unsigned int&gt;, util::DefaultInitAdaptor&lt;std::tuple&lt;unsigned long, unsigned int&gt;, std::allocator&lt;std::tuple&lt;unsigned long, unsigned int&gt; &gt; &gt; &gt; &gt;, long, __gnu_cxx::__ops::_Iter_comp_iter&lt;cstone::sort_by_key&lt;unsigned long*, unsigned int*, std::less&lt;unsigned long&gt; &gt; (1,656,974,516 samples, 0.16%)</title><rect x="1587.5" y="237" width="2.4" height="49.0" fill="rgb(102,248,102)" rx="2" ry="2" />
+<text  x="1590.47" y="264.5" ></text>
+</g>
+<g >
+<title>gomp_barrier_wait_end (75,089,999,783 samples, 7.09%)</title><rect x="510.3" y="187" width="112.0" height="49.0" fill="rgb(80,228,80)" rx="2" ry="2" />
+<text  x="513.29" y="214.5" >gomp_barrier_..</text>
+</g>
+<g >
+<title>cstone::sort_by_key&lt;unsigned long*, unsigned int*, std::less&lt;unsigned long&gt; &gt; (203,714,113 samples, 0.02%)</title><rect x="509.7" y="187" width="0.3" height="49.0" fill="rgb(83,230,83)" rx="2" ry="2" />
+<text  x="512.74" y="214.5" ></text>
+</g>
+<g >
+<title>cstone::sort_by_key&lt;unsigned long*, unsigned int*, std::less&lt;unsigned long&gt; &gt; (525,265,634 samples, 0.05%)</title><rect x="666.3" y="137" width="0.7" height="49.0" fill="rgb(83,230,83)" rx="2" ry="2" />
+<text  x="669.26" y="164.5" ></text>
+</g>
+<g >
+<title>std::__introsort_loop&lt;__gnu_cxx::__normal_iterator&lt;std::tuple&lt;unsigned long, unsigned int&gt;*, std::vector&lt;std::tuple&lt;unsigned long, unsigned int&gt;, util::DefaultInitAdaptor&lt;std::tuple&lt;unsigned long, unsigned int&gt;, std::allocator&lt;std::tuple&lt;unsigned long, unsigned int&gt; &gt; &gt; &gt; &gt;, long, __gnu_cxx::__ops::_Iter_comp_iter&lt;cstone::sort_by_key&lt;unsigned long*, unsigned int*, std::less&lt;unsigned long&gt; &gt; (1,096,440,863 samples, 0.10%)</title><rect x="935.5" y="187" width="1.6" height="49.0" fill="rgb(102,248,102)" rx="2" ry="2" />
+<text  x="938.50" y="214.5" ></text>
+</g>
+<g >
+<title>cstone::nodeFpCenters&lt;unsigned long, double&gt; (282,781,841 samples, 0.03%)</title><rect x="942.7" y="237" width="0.4" height="49.0" fill="rgb(83,231,83)" rx="2" ry="2" />
+<text  x="945.71" y="264.5" ></text>
+</g>
+<g >
+<title>sph::updatePositionsHost&lt;double, sphexa::ParticlesData&lt;double, unsigned long, cstone::CpuTag&gt; &gt; (1,412,150,467 samples, 0.13%)</title><rect x="1585.4" y="237" width="2.1" height="49.0" fill="rgb(96,242,96)" rx="2" ry="2" />
+<text  x="1588.36" y="264.5" ></text>
+</g>
+<g >
+<title>cstone::hilbertIBox&lt;unsigned long&gt; (891,815,744 samples, 0.08%)</title><rect x="941.3" y="237" width="1.3" height="49.0" fill="rgb(98,244,98)" rx="2" ry="2" />
+<text  x="944.32" y="264.5" ></text>
+</g>
+<g >
+<title>GOMP_parallel (4,231,248,884 samples, 0.40%)</title><rect x="11.5" y="187" width="6.3" height="49.0" fill="rgb(53,203,53)" rx="2" ry="2" />
+<text  x="14.45" y="214.5" ></text>
+</g>
+<g >
+<title>cstone::gather&lt;unsigned int, float&gt; (885,272,781 samples, 0.08%)</title><rect x="475.5" y="187" width="1.3" height="49.0" fill="rgb(61,210,61)" rx="2" ry="2" />
+<text  x="478.52" y="214.5" ></text>
+</g>
+<g >
+<title>cstone::findNeighbors&lt;double, float, unsigned long&gt; (1,662,202,081 samples, 0.16%)</title><rect x="938.8" y="237" width="2.5" height="49.0" fill="rgb(75,223,75)" rx="2" ry="2" />
+<text  x="941.84" y="264.5" ></text>
+</g>
+<g >
+<title>__libc_start_main (82,087,603 samples, 0.01%)</title><rect x="26.3" y="187" width="0.2" height="49.0" fill="rgb(87,234,87)" rx="2" ry="2" />
+<text  x="29.35" y="214.5" ></text>
+</g>
+<g >
+<title>_dl_fixup (317,881,789 samples, 0.03%)</title><rect x="937.3" y="237" width="0.4" height="49.0" fill="rgb(104,250,104)" rx="2" ry="2" />
+<text  x="940.26" y="264.5" ></text>
+</g>
+<g >
+<title>ilogbf32 (285,989,142 samples, 0.03%)</title><rect x="667.0" y="187" width="0.5" height="49.0" fill="rgb(56,206,56)" rx="2" ry="2" />
+<text  x="670.05" y="214.5" ></text>
+</g>
+<g >
+<title>cstone::minDistance&lt;double&gt; (21,929,854,722 samples, 2.07%)</title><rect x="477.0" y="187" width="32.7" height="49.0" fill="rgb(80,227,80)" rx="2" ry="2" />
+<text  x="479.96" y="214.5" >cs..</text>
+</g>
+<g >
+<title>sph::computeEOS_HydroStdImpl&lt;sphexa::ParticlesData&lt;double, unsigned long, cstone::CpuTag&gt; &gt; (444,950,581 samples, 0.04%)</title><rect x="24.8" y="137" width="0.7" height="49.0" fill="rgb(99,244,99)" rx="2" ry="2" />
+<text  x="27.83" y="164.5" ></text>
+</g>
+<g >
+<title>gomp_thread_start (29,779,650,746 samples, 2.81%)</title><rect x="622.6" y="187" width="44.4" height="49.0" fill="rgb(90,237,90)" rx="2" ry="2" />
+<text  x="625.62" y="214.5" >gomp..</text>
+</g>
+<g >
+<title>GOMP_parallel (2,794,279,187 samples, 0.26%)</title><rect x="20.7" y="137" width="4.1" height="49.0" fill="rgb(53,203,53)" rx="2" ry="2" />
+<text  x="23.66" y="164.5" ></text>
+</g>
+<g >
+<title>gomp_team_barrier_wait_final (159,599,548 samples, 0.02%)</title><rect x="622.4" y="187" width="0.2" height="49.0" fill="rgb(69,218,69)" rx="2" ry="2" />
+<text  x="625.38" y="214.5" ></text>
+</g>
+<g >
+<title>cstone::computeSfcKeys&lt;double, StrongType&lt;unsigned long, cstone::HilbertKeyTag&gt; &gt; (28,808,871,567 samples, 2.72%)</title><rect x="622.7" y="137" width="43.0" height="49.0" fill="rgb(99,245,99)" rx="2" ry="2" />
+<text  x="625.74" y="164.5" >csto..</text>
+</g>
+<g >
+<title>all (1,059,034,307,146 samples, 100%)</title><rect x="10.0" y="337" width="1580.0" height="49.0" fill="rgb(60,209,60)" rx="2" ry="2" />
+<text  x="13.00" y="364.5" ></text>
+</g>
+<g >
+<title>sphexa (1,058,061,537,318 samples, 99.91%)</title><rect x="11.5" y="287" width="1578.5" height="49.0" fill="rgb(69,217,69)" rx="2" ry="2" />
+<text  x="14.45" y="314.5" >sphexa</text>
+</g>
+<g >
+<title>cstone::computeSfcKeys&lt;double, StrongType&lt;unsigned long, cstone::HilbertKeyTag&gt; &gt; (2,548,767,226 samples, 0.24%)</title><rect x="20.7" y="87" width="3.8" height="49.0" fill="rgb(99,245,99)" rx="2" ry="2" />
+<text  x="23.66" y="114.5" ></text>
+</g>
+<g >
+<title>cstone::gather&lt;unsigned int, double&gt; (404,042,203 samples, 0.04%)</title><rect x="474.9" y="187" width="0.6" height="49.0" fill="rgb(58,208,58)" rx="2" ry="2" />
+<text  x="477.92" y="214.5" ></text>
+</g>
+<g >
+<title>sph::updateSmoothingLengthCpu&lt;float&gt; (576,059,751 samples, 0.05%)</title><rect x="933.2" y="187" width="0.9" height="49.0" fill="rgb(82,229,82)" rx="2" ry="2" />
+<text  x="936.22" y="214.5" ></text>
+</g>
+<g >
+<title>[unknown] (167,938,992 samples, 0.02%)</title><rect x="937.7" y="87" width="0.3" height="49.0" fill="rgb(56,205,56)" rx="2" ry="2" />
+<text  x="940.74" y="114.5" ></text>
+</g>
+<g >
+<title>cstone::Halos&lt;unsigned long, cstone::CpuTag&gt;::discover&lt;double, float, std::vector&lt;float, std::allocator&lt;float&gt; &gt; &gt; (122,838,569 samples, 0.01%)</title><rect x="938.0" y="237" width="0.2" height="49.0" fill="rgb(93,239,93)" rx="2" ry="2" />
+<text  x="940.99" y="264.5" ></text>
+</g>
+<g >
+<title>dfs_traversal (259,500,240 samples, 0.02%)</title><rect x="944.1" y="237" width="0.4" height="49.0" fill="rgb(69,218,69)" rx="2" ry="2" />
+<text  x="947.09" y="264.5" ></text>
+</g>
+<g >
+<title>open_path (167,938,992 samples, 0.02%)</title><rect x="937.7" y="187" width="0.3" height="49.0" fill="rgb(73,221,73)" rx="2" ry="2" />
+<text  x="940.74" y="214.5" ></text>
+</g>
+<g >
+<title>sph::computeMomentumEnergyStdImpl&lt;double, sphexa::ParticlesData&lt;double, unsigned long, cstone::CpuTag&gt; &gt; (291,444,181,429 samples, 27.52%)</title><rect x="1150.0" y="237" width="434.8" height="49.0" fill="rgb(70,218,70)" rx="2" ry="2" />
+<text  x="1153.00" y="264.5" >sph::computeMomentumEnergyStdImpl&lt;double, sphexa::Particles..</text>
+</g>
+<g >
+<title>cstone::omp_copy&lt;__gnu_cxx::__normal_iterator&lt;unsigned int*, std::vector&lt;unsigned int, std::allocator&lt;unsigned int&gt; &gt; &gt;, __gnu_cxx::__normal_iterator&lt;unsigned int*, std::vector&lt;unsigned int, std::allocator&lt;unsigned int&gt; &gt; &gt; &gt; (80,246,157 samples, 0.01%)</title><rect x="665.8" y="137" width="0.2" height="49.0" fill="rgb(79,227,79)" rx="2" ry="2" />
+<text  x="668.84" y="164.5" ></text>
+</g>
+<g >
+<title>sph::computeDensityImpl&lt;double, sphexa::ParticlesData&lt;double, unsigned long, cstone::CpuTag&gt; &gt; (74,221,009,543 samples, 7.01%)</title><rect x="668.9" y="187" width="110.7" height="49.0" fill="rgb(82,229,82)" rx="2" ry="2" />
+<text  x="671.87" y="214.5" >sph::computeD..</text>
+</g>
+<g >
+<title>_dl_map_object (167,938,992 samples, 0.02%)</title><rect x="937.7" y="237" width="0.3" height="49.0" fill="rgb(102,247,102)" rx="2" ry="2" />
+<text  x="940.74" y="264.5" ></text>
+</g>
+<g >
+<title>__GI___close_nocancel (404,412,502 samples, 0.04%)</title><rect x="10.0" y="187" width="0.6" height="49.0" fill="rgb(53,202,53)" rx="2" ry="2" />
+<text  x="13.02" y="214.5" ></text>
+</g>
+<g >
+<title>__GI___open64_nocancel (167,938,992 samples, 0.02%)</title><rect x="937.7" y="137" width="0.3" height="49.0" fill="rgb(66,215,66)" rx="2" ry="2" />
+<text  x="940.74" y="164.5" ></text>
+</g>
+<g >
+<title>cstone::sort_by_key&lt;unsigned long*, unsigned int*, std::less&lt;unsigned long&gt; &gt; (566,020,349 samples, 0.05%)</title><rect x="943.2" y="237" width="0.9" height="49.0" fill="rgb(83,230,83)" rx="2" ry="2" />
+<text  x="946.25" y="264.5" ></text>
+</g>
+<g >
+<title>cstone::findHalos&lt;unsigned long, float, double&gt; (446,512,543 samples, 0.04%)</title><rect x="938.2" y="237" width="0.6" height="49.0" fill="rgb(77,225,77)" rx="2" ry="2" />
+<text  x="941.17" y="264.5" ></text>
+</g>
+<g >
+<title>sph::computeIADImpl&lt;double, sphexa::ParticlesData&lt;double, unsigned long, cstone::CpuTag&gt; &gt; (102,969,139,600 samples, 9.72%)</title><rect x="779.6" y="187" width="153.6" height="49.0" fill="rgb(50,200,50)" rx="2" ry="2" />
+<text  x="782.60" y="214.5" >sph::computeIADImpl..</text>
+</g>
+<g >
+<title>main (81,687,239 samples, 0.01%)</title><rect x="26.3" y="137" width="0.2" height="49.0" fill="rgb(96,242,96)" rx="2" ry="2" />
+<text  x="29.35" y="164.5" ></text>
+</g>
+<g >
+<title>sph::updateTempHost&lt;sphexa::ParticlesData&lt;double, unsigned long, cstone::CpuTag&gt; &gt; (569,527,787 samples, 0.05%)</title><rect x="25.5" y="137" width="0.8" height="49.0" fill="rgb(64,213,64)" rx="2" ry="2" />
+<text  x="28.50" y="164.5" ></text>
+</g>
+<g >
+<title>orted (972,769,828 samples, 0.09%)</title><rect x="10.0" y="287" width="1.5" height="49.0" fill="rgb(58,208,58)" rx="2" ry="2" />
+<text  x="13.00" y="314.5" ></text>
+</g>
+<g >
+<title>cstone::findNeighbors&lt;double, float, unsigned long&gt; (300,503,489,116 samples, 28.38%)</title><rect x="26.5" y="187" width="448.3" height="49.0" fill="rgb(75,223,75)" rx="2" ry="2" />
+<text  x="29.47" y="214.5" >cstone::findNeighbors&lt;double, float, unsigned long&gt;</text>
+</g>
+<g >
+<title>gomp_barrier_wait (163,043,044 samples, 0.02%)</title><rect x="510.0" y="187" width="0.3" height="49.0" fill="rgb(108,253,108)" rx="2" ry="2" />
+<text  x="513.05" y="214.5" ></text>
+</g>
+<g >
+<title>[libm-2.28.so] (1,943,919,411 samples, 0.18%)</title><rect x="17.8" y="187" width="2.9" height="49.0" fill="rgb(54,204,54)" rx="2" ry="2" />
+<text  x="20.76" y="214.5" ></text>
+</g>
+<g >
+<title>gomp_barrier_wait_end (4,231,248,884 samples, 0.40%)</title><rect x="11.5" y="137" width="6.3" height="49.0" fill="rgb(80,228,80)" rx="2" ry="2" />
+<text  x="14.45" y="164.5" ></text>
+</g>
+<g >
+<title>ilogbf@plt (610,443,738 samples, 0.06%)</title><rect x="667.5" y="187" width="0.9" height="49.0" fill="rgb(79,226,79)" rx="2" ry="2" />
+<text  x="670.47" y="214.5" ></text>
+</g>
+<g >
+<title>[unknown] (404,412,502 samples, 0.04%)</title><rect x="10.0" y="137" width="0.6" height="49.0" fill="rgb(56,205,56)" rx="2" ry="2" />
+<text  x="13.02" y="164.5" ></text>
+</g>
+<g >
+<title>cstone::containedIn&lt;unsigned long&gt; (446,512,543 samples, 0.04%)</title><rect x="938.2" y="187" width="0.6" height="49.0" fill="rgb(94,241,94)" rx="2" ry="2" />
+<text  x="941.17" y="214.5" ></text>
+</g>
+<g >
+<title>gomp_team_barrier_wait_end (135,322,374,998 samples, 12.78%)</title><rect x="948.0" y="237" width="201.9" height="49.0" fill="rgb(85,232,85)" rx="2" ry="2" />
+<text  x="951.05" y="264.5" >gomp_team_barrier_wait_end</text>
+</g>
+<g >
+<title>gomp_barrier_wait_end (205,004,115 samples, 0.02%)</title><rect x="24.5" y="87" width="0.3" height="49.0" fill="rgb(80,228,80)" rx="2" ry="2" />
+<text  x="27.53" y="114.5" ></text>
+</g>
+<g >
+<title>sph::findNeighborsSph&lt;double, float, unsigned long&gt; (367,701,536 samples, 0.03%)</title><rect x="1584.8" y="237" width="0.6" height="49.0" fill="rgb(66,214,66)" rx="2" ry="2" />
+<text  x="1587.81" y="264.5" ></text>
+</g>
+<g >
+<title>sphexa::localConservedQuantities&lt;sphexa::ParticlesData&lt;double, unsigned long, cstone::CpuTag&gt; &gt; (951,299,261 samples, 0.09%)</title><rect x="934.1" y="187" width="1.4" height="49.0" fill="rgb(62,211,62)" rx="2" ry="2" />
+<text  x="937.08" y="214.5" ></text>
+</g>
+<g >
+<title>cstone::findSearchBounds&lt;unsigned long&gt; (78,758,592 samples, 0.01%)</title><rect x="474.8" y="187" width="0.1" height="49.0" fill="rgb(103,248,103)" rx="2" ry="2" />
+<text  x="477.80" y="214.5" ></text>
+</g>
+<g >
+<title>cstone::omp_copy&lt;unsigned long const*, __gnu_cxx::__normal_iterator&lt;unsigned long*, std::vector&lt;unsigned long, std::allocator&lt;unsigned long&gt; &gt; &gt; &gt; (202,393,199 samples, 0.02%)</title><rect x="666.0" y="137" width="0.3" height="49.0" fill="rgb(54,204,54)" rx="2" ry="2" />
+<text  x="668.96" y="164.5" ></text>
+</g>
+</g>
+</svg>

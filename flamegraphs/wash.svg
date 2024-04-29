@@ -1,0 +1,665 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" width="1600" height="320" onload="init(evt)" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<!-- Flame graph stack visualization. See https://github.com/brendangregg/FlameGraph for latest version, and http://www.brendangregg.com/flamegraphs.html for examples. -->
+<!-- NOTES:  -->
+<defs>
+	<linearGradient id="background" y1="0" y2="1" x1="0" x2="0" >
+		<stop stop-color="#f8f8f8" offset="5%" />
+		<stop stop-color="#e8e8e8" offset="95%" />
+	</linearGradient>
+</defs>
+<style type="text/css">
+	text { font-family:Computer Modern; font-size:12px; fill:rgb(0,0,0); }
+	#search, #ignorecase { opacity:0.1; cursor:pointer; }
+	#search:hover, #search.show, #ignorecase:hover, #ignorecase.show { opacity:1; }
+	#subtitle { text-anchor:middle; font-color:rgb(160,160,160); }
+	#title { text-anchor:middle; font-size:17px}
+	#unzoom { cursor:pointer; }
+	#frames > *:hover { stroke:black; stroke-width:0.5; cursor:pointer; }
+	.hide { display:none; }
+	.parent { opacity:0.5; }
+</style>
+<script type="text/ecmascript">
+<![CDATA[
+	"use strict";
+	var details, searchbtn, unzoombtn, matchedtxt, svg, searching, currentSearchTerm, ignorecase, ignorecaseBtn;
+	function init(evt) {
+		details = document.getElementById("details").firstChild;
+		searchbtn = document.getElementById("search");
+		ignorecaseBtn = document.getElementById("ignorecase");
+		unzoombtn = document.getElementById("unzoom");
+		matchedtxt = document.getElementById("matched");
+		svg = document.getElementsByTagName("svg")[0];
+		searching = 0;
+		currentSearchTerm = null;
+
+		// use GET parameters to restore a flamegraphs state.
+		var params = get_params();
+		if (params.x && params.y)
+			zoom(find_group(document.querySelector('[x="' + params.x + '"][y="' + params.y + '"]')));
+                if (params.s) search(params.s);
+	}
+
+	// event listeners
+	window.addEventListener("click", function(e) {
+		var target = find_group(e.target);
+		if (target) {
+			if (target.nodeName == "a") {
+				if (e.ctrlKey === false) return;
+				e.preventDefault();
+			}
+			if (target.classList.contains("parent")) unzoom(true);
+			zoom(target);
+			if (!document.querySelector('.parent')) {
+				// we have basically done a clearzoom so clear the url
+				var params = get_params();
+				if (params.x) delete params.x;
+				if (params.y) delete params.y;
+				history.replaceState(null, null, parse_params(params));
+				unzoombtn.classList.add("hide");
+				return;
+			}
+
+			// set parameters for zoom state
+			var el = target.querySelector("rect");
+			if (el && el.attributes && el.attributes.y && el.attributes._orig_x) {
+				var params = get_params()
+				params.x = el.attributes._orig_x.value;
+				params.y = el.attributes.y.value;
+				history.replaceState(null, null, parse_params(params));
+			}
+		}
+		else if (e.target.id == "unzoom") clearzoom();
+		else if (e.target.id == "search") search_prompt();
+		else if (e.target.id == "ignorecase") toggle_ignorecase();
+	}, false)
+
+	// mouse-over for info
+	// show
+	window.addEventListener("mouseover", function(e) {
+		var target = find_group(e.target);
+		if (target) details.nodeValue = "Function: " + g_to_text(target);
+	}, false)
+
+	// clear
+	window.addEventListener("mouseout", function(e) {
+		var target = find_group(e.target);
+		if (target) details.nodeValue = ' ';
+	}, false)
+
+	// ctrl-F for search
+	// ctrl-I to toggle case-sensitive search
+	window.addEventListener("keydown",function (e) {
+		if (e.keyCode === 114 || (e.ctrlKey && e.keyCode === 70)) {
+			e.preventDefault();
+			search_prompt();
+		}
+		else if (e.ctrlKey && e.keyCode === 73) {
+			e.preventDefault();
+			toggle_ignorecase();
+		}
+	}, false)
+
+	// functions
+	function get_params() {
+		var params = {};
+		var paramsarr = window.location.search.substr(1).split('&');
+		for (var i = 0; i < paramsarr.length; ++i) {
+			var tmp = paramsarr[i].split("=");
+			if (!tmp[0] || !tmp[1]) continue;
+			params[tmp[0]]  = decodeURIComponent(tmp[1]);
+		}
+		return params;
+	}
+	function parse_params(params) {
+		var uri = "?";
+		for (var key in params) {
+			uri += key + '=' + encodeURIComponent(params[key]) + '&';
+		}
+		if (uri.slice(-1) == "&")
+			uri = uri.substring(0, uri.length - 1);
+		if (uri == '?')
+			uri = window.location.href.split('?')[0];
+		return uri;
+	}
+	function find_child(node, selector) {
+		var children = node.querySelectorAll(selector);
+		if (children.length) return children[0];
+	}
+	function find_group(node) {
+		var parent = node.parentElement;
+		if (!parent) return;
+		if (parent.id == "frames") return node;
+		return find_group(parent);
+	}
+	function orig_save(e, attr, val) {
+		if (e.attributes["_orig_" + attr] != undefined) return;
+		if (e.attributes[attr] == undefined) return;
+		if (val == undefined) val = e.attributes[attr].value;
+		e.setAttribute("_orig_" + attr, val);
+	}
+	function orig_load(e, attr) {
+		if (e.attributes["_orig_"+attr] == undefined) return;
+		e.attributes[attr].value = e.attributes["_orig_" + attr].value;
+		e.removeAttribute("_orig_"+attr);
+	}
+	function g_to_text(e) {
+		var text = find_child(e, "title").firstChild.nodeValue;
+		return (text)
+	}
+	function g_to_func(e) {
+		var func = g_to_text(e);
+		// if there's any manipulation we want to do to the function
+		// name before it's searched, do it here before returning.
+		return (func);
+	}
+	function update_text(e) {
+		var r = find_child(e, "rect");
+		var t = find_child(e, "text");
+		var w = parseFloat(r.attributes.width.value) -3;
+		var txt = find_child(e, "title").textContent.replace(/\([^(]*\)$/,"");
+		t.attributes.x.value = parseFloat(r.attributes.x.value) + 3;
+
+		// Smaller than this size won't fit anything
+		if (w < 2 * 12 * 0.59) {
+			t.textContent = "";
+			return;
+		}
+
+		t.textContent = txt;
+		var sl = t.getSubStringLength(0, txt.length);
+		// check if only whitespace or if we can fit the entire string into width w
+		if (/^ *$/.test(txt) || sl < w)
+			return;
+
+		// this isn't perfect, but gives a good starting point
+		// and avoids calling getSubStringLength too often
+		var start = Math.floor((w/sl) * txt.length);
+		for (var x = start; x > 0; x = x-2) {
+			if (t.getSubStringLength(0, x + 2) <= w) {
+				t.textContent = txt.substring(0, x) + "..";
+				return;
+			}
+		}
+		t.textContent = "";
+	}
+
+	// zoom
+	function zoom_reset(e) {
+		if (e.attributes != undefined) {
+			orig_load(e, "x");
+			orig_load(e, "width");
+		}
+		if (e.childNodes == undefined) return;
+		for (var i = 0, c = e.childNodes; i < c.length; i++) {
+			zoom_reset(c[i]);
+		}
+	}
+	function zoom_child(e, x, ratio) {
+		if (e.attributes != undefined) {
+			if (e.attributes.x != undefined) {
+				orig_save(e, "x");
+				e.attributes.x.value = (parseFloat(e.attributes.x.value) - x - 10) * ratio + 10;
+				if (e.tagName == "text")
+					e.attributes.x.value = find_child(e.parentNode, "rect[x]").attributes.x.value + 3;
+			}
+			if (e.attributes.width != undefined) {
+				orig_save(e, "width");
+				e.attributes.width.value = parseFloat(e.attributes.width.value) * ratio;
+			}
+		}
+
+		if (e.childNodes == undefined) return;
+		for (var i = 0, c = e.childNodes; i < c.length; i++) {
+			zoom_child(c[i], x - 10, ratio);
+		}
+	}
+	function zoom_parent(e) {
+		if (e.attributes) {
+			if (e.attributes.x != undefined) {
+				orig_save(e, "x");
+				e.attributes.x.value = 10;
+			}
+			if (e.attributes.width != undefined) {
+				orig_save(e, "width");
+				e.attributes.width.value = parseInt(svg.width.baseVal.value) - (10 * 2);
+			}
+		}
+		if (e.childNodes == undefined) return;
+		for (var i = 0, c = e.childNodes; i < c.length; i++) {
+			zoom_parent(c[i]);
+		}
+	}
+	function zoom(node) {
+		var attr = find_child(node, "rect").attributes;
+		var width = parseFloat(attr.width.value);
+		var xmin = parseFloat(attr.x.value);
+		var xmax = parseFloat(xmin + width);
+		var ymin = parseFloat(attr.y.value);
+		var ratio = (svg.width.baseVal.value - 2 * 10) / width;
+
+		// XXX: Workaround for JavaScript float issues (fix me)
+		var fudge = 0.0001;
+
+		unzoombtn.classList.remove("hide");
+
+		var el = document.getElementById("frames").children;
+		for (var i = 0; i < el.length; i++) {
+			var e = el[i];
+			var a = find_child(e, "rect").attributes;
+			var ex = parseFloat(a.x.value);
+			var ew = parseFloat(a.width.value);
+			var upstack;
+			// Is it an ancestor
+			if (0 == 0) {
+				upstack = parseFloat(a.y.value) > ymin;
+			} else {
+				upstack = parseFloat(a.y.value) < ymin;
+			}
+			if (upstack) {
+				// Direct ancestor
+				if (ex <= xmin && (ex+ew+fudge) >= xmax) {
+					e.classList.add("parent");
+					zoom_parent(e);
+					update_text(e);
+				}
+				// not in current path
+				else
+					e.classList.add("hide");
+			}
+			// Children maybe
+			else {
+				// no common path
+				if (ex < xmin || ex + fudge >= xmax) {
+					e.classList.add("hide");
+				}
+				else {
+					zoom_child(e, xmin, ratio);
+					update_text(e);
+				}
+			}
+		}
+		search();
+	}
+	function unzoom(dont_update_text) {
+		unzoombtn.classList.add("hide");
+		var el = document.getElementById("frames").children;
+		for(var i = 0; i < el.length; i++) {
+			el[i].classList.remove("parent");
+			el[i].classList.remove("hide");
+			zoom_reset(el[i]);
+			if(!dont_update_text) update_text(el[i]);
+		}
+		search();
+	}
+	function clearzoom() {
+		unzoom();
+
+		// remove zoom state
+		var params = get_params();
+		if (params.x) delete params.x;
+		if (params.y) delete params.y;
+		history.replaceState(null, null, parse_params(params));
+	}
+
+	// search
+	function toggle_ignorecase() {
+		ignorecase = !ignorecase;
+		if (ignorecase) {
+			ignorecaseBtn.classList.add("show");
+		} else {
+			ignorecaseBtn.classList.remove("show");
+		}
+		reset_search();
+		search();
+	}
+	function reset_search() {
+		var el = document.querySelectorAll("#frames rect");
+		for (var i = 0; i < el.length; i++) {
+			orig_load(el[i], "fill")
+		}
+		var params = get_params();
+		delete params.s;
+		history.replaceState(null, null, parse_params(params));
+	}
+	function search_prompt() {
+		if (!searching) {
+			var term = prompt("Enter a search term (regexp " +
+			    "allowed, eg: ^ext4_)"
+			    + (ignorecase ? ", ignoring case" : "")
+			    + "\nPress Ctrl-i to toggle case sensitivity", "");
+			if (term != null) search(term);
+		} else {
+			reset_search();
+			searching = 0;
+			currentSearchTerm = null;
+			searchbtn.classList.remove("show");
+			searchbtn.firstChild.nodeValue = "Search"
+			matchedtxt.classList.add("hide");
+			matchedtxt.firstChild.nodeValue = ""
+		}
+	}
+	function search(term) {
+		if (term) currentSearchTerm = term;
+
+		var re = new RegExp(currentSearchTerm, ignorecase ? 'i' : '');
+		var el = document.getElementById("frames").children;
+		var matches = new Object();
+		var maxwidth = 0;
+		for (var i = 0; i < el.length; i++) {
+			var e = el[i];
+			var func = g_to_func(e);
+			var rect = find_child(e, "rect");
+			if (func == null || rect == null)
+				continue;
+
+			// Save max width. Only works as we have a root frame
+			var w = parseFloat(rect.attributes.width.value);
+			if (w > maxwidth)
+				maxwidth = w;
+
+			if (func.match(re)) {
+				// highlight
+				var x = parseFloat(rect.attributes.x.value);
+				orig_save(rect, "fill");
+				rect.attributes.fill.value = "rgb(230,0,230)";
+
+				// remember matches
+				if (matches[x] == undefined) {
+					matches[x] = w;
+				} else {
+					if (w > matches[x]) {
+						// overwrite with parent
+						matches[x] = w;
+					}
+				}
+				searching = 1;
+			}
+		}
+		if (!searching)
+			return;
+		var params = get_params();
+		params.s = currentSearchTerm;
+		history.replaceState(null, null, parse_params(params));
+
+		searchbtn.classList.add("show");
+		searchbtn.firstChild.nodeValue = "Reset Search";
+
+		// calculate percent matched, excluding vertical overlap
+		var count = 0;
+		var lastx = -1;
+		var lastw = 0;
+		var keys = Array();
+		for (k in matches) {
+			if (matches.hasOwnProperty(k))
+				keys.push(k);
+		}
+		// sort the matched frames by their x location
+		// ascending, then width descending
+		keys.sort(function(a, b){
+			return a - b;
+		});
+		// Step through frames saving only the biggest bottom-up frames
+		// thanks to the sort order. This relies on the tree property
+		// where children are always smaller than their parents.
+		var fudge = 0.0001;	// JavaScript floating point
+		for (var k in keys) {
+			var x = parseFloat(keys[k]);
+			var w = matches[keys[k]];
+			if (x >= lastx + lastw - fudge) {
+				count += w;
+				lastx = x;
+				lastw = w;
+			}
+		}
+		// display matched percent
+		matchedtxt.classList.remove("hide");
+		var pct = 100 * count / maxwidth;
+		if (pct != 100) pct = pct.toFixed(1)
+		matchedtxt.firstChild.nodeValue = "Matched: " + pct + "%";
+	}
+]]>
+</script>
+<rect x="0.0" y="0" width="1600.0" height="320.0" fill="url(#background)"  />
+<text id="title" x="800.00" y="24" >WaSH Flame Graph</text>
+<text id="details" x="10.00" y="303" > </text>
+<text id="unzoom" x="10.00" y="24" class="hide">Reset Zoom</text>
+<text id="search" x="1490.00" y="24" >Search</text>
+<text id="ignorecase" x="1574.00" y="24" >ic</text>
+<text id="matched" x="1490.00" y="303" > </text>
+<g id="frames">
+<g >
+<title>.omp_outlined..100 (3,286,702,660 samples, 0.55%)</title><rect x="551.8" y="37" width="8.7" height="49.0" fill="rgb(219,68,16)" rx="2" ry="2" />
+<text  x="554.81" y="64.5" ></text>
+</g>
+<g >
+<title>handle_intel.constprop.1 (216,646,394 samples, 0.04%)</title><rect x="10.1" y="137" width="0.5" height="49.0" fill="rgb(235,141,33)" rx="2" ry="2" />
+<text  x="13.05" y="164.5" ></text>
+</g>
+<g >
+<title>[libomp.so] (200,999,874,926 samples, 33.60%)</title><rect x="20.7" y="137" width="530.9" height="49.0" fill="rgb(214,41,10)" rx="2" ry="2" />
+<text  x="23.73" y="164.5" >[libomp.so]</text>
+</g>
+<g >
+<title>.omp_outlined..82 (76,650,122 samples, 0.01%)</title><rect x="15.5" y="137" width="0.2" height="49.0" fill="rgb(221,77,18)" rx="2" ry="2" />
+<text  x="18.48" y="164.5" ></text>
+</g>
+<g >
+<title>scalbnf32x (42,349,990 samples, 0.01%)</title><rect x="1207.5" y="137" width="0.1" height="49.0" fill="rgb(226,99,23)" rx="2" ry="2" />
+<text  x="1210.53" y="164.5" ></text>
+</g>
+<g >
+<title>clock_gettime@GLIBC_2.2.5 (40,658,956 samples, 0.01%)</title><rect x="551.6" y="37" width="0.1" height="49.0" fill="rgb(223,84,20)" rx="2" ry="2" />
+<text  x="554.59" y="64.5" ></text>
+</g>
+<g >
+<title>all (598,260,163,454 samples, 100%)</title><rect x="10.0" y="237" width="1580.0" height="49.0" fill="rgb(213,39,9)" rx="2" ry="2" />
+<text  x="13.00" y="264.5" ></text>
+</g>
+<g >
+<title>wash::recalculate_neighbours (142,407,483,925 samples, 23.80%)</title><rect x="1213.8" y="137" width="376.1" height="49.0" fill="rgb(252,219,52)" rx="2" ry="2" />
+<text  x="1216.80" y="164.5" >wash::recalculate_neighbours</text>
+</g>
+<g >
+<title>.omp_outlined..135 (40,823,445 samples, 0.01%)</title><rect x="12.5" y="137" width="0.1" height="49.0" fill="rgb(218,60,14)" rx="2" ry="2" />
+<text  x="15.46" y="164.5" ></text>
+</g>
+<g >
+<title>[unknown] (41,122,662 samples, 0.01%)</title><rect x="919.1" y="37" width="0.1" height="49.0" fill="rgb(210,24,5)" rx="2" ry="2" />
+<text  x="922.09" y="64.5" ></text>
+</g>
+<g >
+<title>std::__introsort_loop&lt;__gnu_cxx::__normal_iterator&lt;std::tuple&lt;unsigned long, unsigned int&gt;*, std::vector&lt;std::tuple&lt;unsigned long, unsigned int&gt;, util::DefaultInitAdaptor&lt;std::tuple&lt;unsigned long, unsigned int&gt;, std::allocator&lt;std::tuple&lt;unsigned long, unsigned int&gt; &gt; &gt; &gt; &gt;, long, __gnu_cxx::__ops::_Iter_comp_iter&lt;cstone::sort_by_key&lt;unsigned long*, unsigned int*, std::less&lt;unsigned long&gt; &gt; (1,146,287,983 samples, 0.19%)</title><rect x="1208.3" y="137" width="3.0" height="49.0" fill="rgb(248,202,48)" rx="2" ry="2" />
+<text  x="1211.30" y="164.5" ></text>
+</g>
+<g >
+<title>mmap64 (132,413,589 samples, 0.02%)</title><rect x="1206.1" y="137" width="0.4" height="49.0" fill="rgb(220,70,16)" rx="2" ry="2" />
+<text  x="1209.12" y="164.5" ></text>
+</g>
+<g >
+<title>orted (236,080,401 samples, 0.04%)</title><rect x="10.0" y="187" width="0.6" height="49.0" fill="rgb(212,33,8)" rx="2" ry="2" />
+<text  x="13.00" y="214.5" ></text>
+</g>
+<g >
+<title>dl_open_worker_begin (516,271,168 samples, 0.09%)</title><rect x="1201.7" y="137" width="1.4" height="49.0" fill="rgb(233,129,31)" rx="2" ry="2" />
+<text  x="1204.75" y="164.5" ></text>
+</g>
+<g >
+<title>.omp_outlined. (328,178,694 samples, 0.05%)</title><rect x="10.6" y="137" width="0.9" height="49.0" fill="rgb(253,223,53)" rx="2" ry="2" />
+<text  x="13.62" y="164.5" ></text>
+</g>
+<g >
+<title>compute_smoothing_length_neighbors (245,786,559 samples, 0.04%)</title><rect x="1171.9" y="137" width="0.7" height="49.0" fill="rgb(218,64,15)" rx="2" ry="2" />
+<text  x="1174.91" y="164.5" ></text>
+</g>
+<g >
+<title>.omp_outlined..137 (40,677,126 samples, 0.01%)</title><rect x="12.6" y="137" width="0.1" height="49.0" fill="rgb(205,1,0)" rx="2" ry="2" />
+<text  x="15.57" y="164.5" ></text>
+</g>
+<g >
+<title>ilogb@plt (241,500,274 samples, 0.04%)</title><rect x="1203.2" y="137" width="0.7" height="49.0" fill="rgb(238,152,36)" rx="2" ry="2" />
+<text  x="1206.22" y="164.5" ></text>
+</g>
+<g >
+<title>.omp_outlined..36 (40,814,057 samples, 0.01%)</title><rect x="13.0" y="137" width="0.1" height="49.0" fill="rgb(228,106,25)" rx="2" ry="2" />
+<text  x="16.00" y="164.5" ></text>
+</g>
+<g >
+<title>compute_iad (47,117,517,427 samples, 7.88%)</title><rect x="1046.1" y="137" width="124.4" height="49.0" fill="rgb(207,9,2)" rx="2" ry="2" />
+<text  x="1049.06" y="164.5" >compute_iad</text>
+</g>
+<g >
+<title>[unknown] (40,658,956 samples, 0.01%)</title><rect x="551.6" y="87" width="0.1" height="49.0" fill="rgb(210,24,5)" rx="2" ry="2" />
+<text  x="554.59" y="114.5" ></text>
+</g>
+<g >
+<title>compute_momentum_energy_std (135,100,740,691 samples, 22.58%)</title><rect x="562.4" y="87" width="356.8" height="49.0" fill="rgb(245,188,44)" rx="2" ry="2" />
+<text  x="565.40" y="114.5" >compute_momentum_energy_std</text>
+</g>
+<g >
+<title>.omp_outlined..116 (40,695,917 samples, 0.01%)</title><rect x="12.4" y="137" width="0.1" height="49.0" fill="rgb(224,90,21)" rx="2" ry="2" />
+<text  x="15.35" y="164.5" ></text>
+</g>
+<g >
+<title>cstone::iHilbert&lt;unsigned long&gt; (10,202,964,811 samples, 1.71%)</title><rect x="1174.5" y="137" width="26.9" height="49.0" fill="rgb(214,42,10)" rx="2" ry="2" />
+<text  x="1177.48" y="164.5" >c..</text>
+</g>
+<g >
+<title>compute_eos_hydro_std (123,189,206 samples, 0.02%)</title><rect x="1045.7" y="137" width="0.4" height="49.0" fill="rgb(227,101,24)" rx="2" ry="2" />
+<text  x="1048.74" y="164.5" ></text>
+</g>
+<g >
+<title>_dl_relocate_object (516,271,168 samples, 0.09%)</title><rect x="1201.7" y="87" width="1.4" height="49.0" fill="rgb(231,120,28)" rx="2" ry="2" />
+<text  x="1204.75" y="114.5" ></text>
+</g>
+<g >
+<title>__kmp_init_implicit_task (40,725,955 samples, 0.01%)</title><rect x="963.4" y="137" width="0.2" height="49.0" fill="rgb(250,210,50)" rx="2" ry="2" />
+<text  x="966.45" y="164.5" ></text>
+</g>
+<g >
+<title>update_positions (653,248,920 samples, 0.11%)</title><rect x="1211.3" y="137" width="1.7" height="49.0" fill="rgb(236,143,34)" rx="2" ry="2" />
+<text  x="1214.32" y="164.5" ></text>
+</g>
+<g >
+<title>pow@plt (122,308,086 samples, 0.02%)</title><rect x="1206.5" y="137" width="0.3" height="49.0" fill="rgb(220,70,16)" rx="2" ry="2" />
+<text  x="1209.47" y="164.5" ></text>
+</g>
+<g >
+<title>update_temp (204,867,651 samples, 0.03%)</title><rect x="1213.3" y="137" width="0.5" height="49.0" fill="rgb(216,53,12)" rx="2" ry="2" />
+<text  x="1216.26" y="164.5" ></text>
+</g>
+<g >
+<title>__kmp_hardware_timestamp (15,735,562,743 samples, 2.63%)</title><rect x="919.2" y="137" width="41.6" height="49.0" fill="rgb(244,180,43)" rx="2" ry="2" />
+<text  x="922.20" y="164.5" >__k..</text>
+</g>
+<g >
+<title>[libm-2.28.so] (1,911,479,355 samples, 0.32%)</title><rect x="15.7" y="137" width="5.0" height="49.0" fill="rgb(209,18,4)" rx="2" ry="2" />
+<text  x="18.69" y="164.5" ></text>
+</g>
+<g >
+<title>.omp_outlined..1 (326,758,430 samples, 0.05%)</title><rect x="11.5" y="137" width="0.9" height="49.0" fill="rgb(239,160,38)" rx="2" ry="2" />
+<text  x="14.49" y="164.5" ></text>
+</g>
+<g >
+<title>ilogbf32x (81,094,511 samples, 0.01%)</title><rect x="1203.9" y="137" width="0.2" height="49.0" fill="rgb(235,140,33)" rx="2" ry="2" />
+<text  x="1206.85" y="164.5" ></text>
+</g>
+<g >
+<title>.omp_outlined..47 (859,109,108 samples, 0.14%)</title><rect x="13.2" y="137" width="2.3" height="49.0" fill="rgb(215,47,11)" rx="2" ry="2" />
+<text  x="16.22" y="164.5" ></text>
+</g>
+<g >
+<title>powf32x (278,805,015 samples, 0.05%)</title><rect x="1206.8" y="137" width="0.7" height="49.0" fill="rgb(217,58,13)" rx="2" ry="2" />
+<text  x="1209.80" y="164.5" ></text>
+</g>
+<g >
+<title>get_dt (41,073,365 samples, 0.01%)</title><rect x="1203.1" y="137" width="0.1" height="49.0" fill="rgb(237,148,35)" rx="2" ry="2" />
+<text  x="1206.11" y="164.5" ></text>
+</g>
+<g >
+<title>.omp_outlined..154 (40,806,580 samples, 0.01%)</title><rect x="560.6" y="37" width="0.1" height="49.0" fill="rgb(211,30,7)" rx="2" ry="2" />
+<text  x="563.59" y="64.5" ></text>
+</g>
+<g >
+<title>.omp_outlined..71 (238,576,337 samples, 0.04%)</title><rect x="561.7" y="37" width="0.6" height="49.0" fill="rgb(234,136,32)" rx="2" ry="2" />
+<text  x="564.67" y="64.5" ></text>
+</g>
+<g >
+<title>.omp_outlined..3 (122,215,675 samples, 0.02%)</title><rect x="12.7" y="137" width="0.3" height="49.0" fill="rgb(227,101,24)" rx="2" ry="2" />
+<text  x="15.68" y="164.5" ></text>
+</g>
+<g >
+<title>.omp_outlined..42 (41,115,937 samples, 0.01%)</title><rect x="13.1" y="137" width="0.1" height="49.0" fill="rgb(247,196,46)" rx="2" ry="2" />
+<text  x="16.11" y="164.5" ></text>
+</g>
+<g >
+<title>__kmp_invoke_task_func (4,052,622,078 samples, 0.68%)</title><rect x="551.7" y="87" width="10.7" height="49.0" fill="rgb(239,158,37)" rx="2" ry="2" />
+<text  x="554.70" y="114.5" ></text>
+</g>
+<g >
+<title>__kmp_hardware_timestamp@plt (1,018,133,615 samples, 0.17%)</title><rect x="960.8" y="137" width="2.6" height="49.0" fill="rgb(210,24,5)" rx="2" ry="2" />
+<text  x="963.76" y="164.5" ></text>
+</g>
+<g >
+<title>compute_density (30,872,333,943 samples, 5.16%)</title><rect x="964.2" y="137" width="81.5" height="49.0" fill="rgb(246,192,46)" rx="2" ry="2" />
+<text  x="967.20" y="164.5" >compute_d..</text>
+</g>
+<g >
+<title>cstone::hilbertIBox&lt;unsigned long&gt; (730,632,575 samples, 0.12%)</title><rect x="1172.6" y="137" width="1.9" height="49.0" fill="rgb(245,187,44)" rx="2" ry="2" />
+<text  x="1175.56" y="164.5" ></text>
+</g>
+<g >
+<title>__sched_yield (202,673,865 samples, 0.03%)</title><rect x="963.7" y="137" width="0.5" height="49.0" fill="rgb(213,40,9)" rx="2" ry="2" />
+<text  x="966.67" y="164.5" ></text>
+</g>
+<g >
+<title>compute_momentum_energy_std (533,098,602 samples, 0.09%)</title><rect x="1170.5" y="137" width="1.4" height="49.0" fill="rgb(245,188,44)" rx="2" ry="2" />
+<text  x="1173.50" y="164.5" ></text>
+</g>
+<g >
+<title>init (778,281,086 samples, 0.13%)</title><rect x="1204.1" y="137" width="2.0" height="49.0" fill="rgb(247,193,46)" rx="2" ry="2" />
+<text  x="1207.07" y="164.5" ></text>
+</g>
+<g >
+<title>sedov_wone (598,024,083,053 samples, 99.96%)</title><rect x="10.6" y="187" width="1579.4" height="49.0" fill="rgb(230,116,27)" rx="2" ry="2" />
+<text  x="13.62" y="214.5" >sedov_wone</text>
+</g>
+<g >
+<title>__kmp_invoke_microtask (39,276,374 samples, 0.01%)</title><rect x="562.3" y="37" width="0.1" height="49.0" fill="rgb(242,173,41)" rx="2" ry="2" />
+<text  x="565.30" y="64.5" ></text>
+</g>
+<g >
+<title>.omp_outlined..70 (365,463,977 samples, 0.06%)</title><rect x="560.7" y="37" width="1.0" height="49.0" fill="rgb(241,166,39)" rx="2" ry="2" />
+<text  x="563.70" y="64.5" ></text>
+</g>
+<g >
+<title>.omp_outlined..122 (40,659,522 samples, 0.01%)</title><rect x="560.5" y="37" width="0.1" height="49.0" fill="rgb(244,179,42)" rx="2" ry="2" />
+<text  x="563.49" y="64.5" ></text>
+</g>
+<g >
+<title>std::_Function_handler&lt;void  (246,122,974 samples, 0.04%)</title><rect x="1207.6" y="137" width="0.7" height="49.0" fill="rgb(245,187,44)" rx="2" ry="2" />
+<text  x="1210.65" y="164.5" ></text>
+</g>
+<g >
+<title>update_smoothing_length (81,281,591 samples, 0.01%)</title><rect x="1213.0" y="137" width="0.3" height="49.0" fill="rgb(228,108,26)" rx="2" ry="2" />
+<text  x="1216.05" y="164.5" ></text>
+</g>
+<g >
+<title>[unknown] (132,413,589 samples, 0.02%)</title><rect x="1206.1" y="87" width="0.4" height="49.0" fill="rgb(210,24,5)" rx="2" ry="2" />
+<text  x="1209.12" y="114.5" ></text>
+</g>
+<g >
+<title>[unknown] (139,200,378,591 samples, 23.27%)</title><rect x="551.6" y="137" width="367.6" height="49.0" fill="rgb(210,24,5)" rx="2" ry="2" />
+<text  x="554.57" y="164.5" >[unknown]</text>
+</g>
+<g >
+<title>cstone::sort_by_key&lt;unsigned long*, unsigned int*, std::less&lt;unsigned long&gt; &gt; (119,007,301 samples, 0.02%)</title><rect x="1201.4" y="137" width="0.3" height="49.0" fill="rgb(232,127,30)" rx="2" ry="2" />
+<text  x="1204.43" y="164.5" ></text>
+</g>
+<g >
+<title>__kmp_yield (40,929,913 samples, 0.01%)</title><rect x="963.6" y="137" width="0.1" height="49.0" fill="rgb(247,195,46)" rx="2" ry="2" />
+<text  x="966.55" y="164.5" ></text>
+</g>
+</g>
+</svg>

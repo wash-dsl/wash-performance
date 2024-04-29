@@ -1,0 +1,1923 @@
+1.18
+
+Params:Program: ../sph-exa-build/main/src/sphexa/sphexa
+Particles: 20
+Timestep: 100
+Numthreads: 32
+--------------------------------------------------------------------------
+WARNING: There is at least non-excluded one OpenFabrics device found,
+but there are no active ports detected (or Open MPI was unable to use
+them).  This is most certainly not what you wanted.  Check your
+cables, subnet manager configuration, etc.  The openib BTL will be
+ignored for this job.
+
+  Local host: emu-23
+--------------------------------------------------------------------------
+# SPHEXA: HEAD/22053277
+# 1 MPI-3.1 process(es) with 32 OpenMP-201511 thread(s)/process
+Data generated for 8000 global particles
+Domain synchronized, nLocalParticles 8000
+# domain::sync: 0.0015366s
+# FindNeighbors: 0.00420132s
+# Density: 0.000402s
+# EquationOfState: 1.9386e-05s
+# mpi::synchronizeHalos: 4.905e-06s
+# IAD: 0.000664189s
+# mpi::synchronizeHalos: 7.572e-06s
+# MomentumEnergyIAD: 0.00136003s
+# Timestep: 8.271e-06s
+# UpdateQuantities: 5.2932e-05s
+# UpdateSmoothingLength: 2.4037e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 1.1e-06, current time-step: 1.1e-06
+### Check ### Total energy: 1, (internal: 1, kinetic: 7.2193e-09, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(1) 0.00828413s
+
+# domain::sync: 0.00165022s
+# FindNeighbors: 0.00197962s
+# Density: 0.000396602s
+# EquationOfState: 1.7366e-05s
+# mpi::synchronizeHalos: 4.604e-06s
+# IAD: 0.000614141s
+# mpi::synchronizeHalos: 5.362e-06s
+# MomentumEnergyIAD: 0.00162679s
+# Timestep: 5.51e-06s
+# UpdateQuantities: 5.1712e-05s
+# UpdateSmoothingLength: 2.2987e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 2.31e-06, current time-step: 1.21e-06
+### Check ### Total energy: 1, (internal: 1, kinetic: 2.22114e-08, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(2) 0.00637816s
+
+# domain::sync: 0.00152416s
+# FindNeighbors: 0.0020958s
+# Density: 0.000407412s
+# EquationOfState: 1.7237e-05s
+# mpi::synchronizeHalos: 4.515e-06s
+# IAD: 0.000626111s
+# mpi::synchronizeHalos: 5.362e-06s
+# MomentumEnergyIAD: 0.00160563s
+# Timestep: 5.98e-06s
+# UpdateQuantities: 5.227e-05s
+# UpdateSmoothingLength: 1.7508e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 3.641e-06, current time-step: 1.331e-06
+### Check ### Total energy: 1, (internal: 1, kinetic: 4.81206e-08, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(3) 0.00636655s
+
+# domain::sync: 0.00150968s
+# FindNeighbors: 0.00210744s
+# Density: 0.000403919s
+# EquationOfState: 1.9282e-05s
+# mpi::synchronizeHalos: 4.628e-06s
+# IAD: 0.000598412s
+# mpi::synchronizeHalos: 8.372e-06s
+# MomentumEnergyIAD: 0.00160009s
+# Timestep: 6.597e-06s
+# UpdateQuantities: 5.8053e-05s
+# UpdateSmoothingLength: 1.8239e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 5.1051e-06, current time-step: 1.4641e-06
+### Check ### Total energy: 1, (internal: 1, kinetic: 8.79487e-08, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(4) 0.0063387s
+
+# domain::sync: 0.00150594s
+# FindNeighbors: 0.00215562s
+# Density: 0.000403833s
+# EquationOfState: 1.7428e-05s
+# mpi::synchronizeHalos: 4.643e-06s
+# IAD: 0.000603478s
+# mpi::synchronizeHalos: 6.064e-06s
+# MomentumEnergyIAD: 0.00156957s
+# Timestep: 5.633e-06s
+# UpdateQuantities: 5.1824e-05s
+# UpdateSmoothingLength: 1.7543e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 6.71561e-06, current time-step: 1.61051e-06
+### Check ### Total energy: 1, (internal: 1, kinetic: 1.45384e-07, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(5) 0.00634665s
+
+# domain::sync: 0.00151011s
+# FindNeighbors: 0.00215529s
+# Density: 0.000398256s
+# EquationOfState: 1.8245e-05s
+# mpi::synchronizeHalos: 5.618e-06s
+# IAD: 0.00060349s
+# mpi::synchronizeHalos: 5.101e-06s
+# MomentumEnergyIAD: 0.00155953s
+# Timestep: 5.412e-06s
+# UpdateQuantities: 5.4897e-05s
+# UpdateSmoothingLength: 1.8201e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 8.48717e-06, current time-step: 1.77156e-06
+### Check ### Total energy: 1, (internal: 1, kinetic: 2.24949e-07, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(6) 0.00633857s
+
+# domain::sync: 0.00151093s
+# FindNeighbors: 0.00230152s
+# Density: 0.000525188s
+# EquationOfState: 1.7653e-05s
+# mpi::synchronizeHalos: 5.221e-06s
+# IAD: 0.000801456s
+# mpi::synchronizeHalos: 5.268e-06s
+# MomentumEnergyIAD: 0.00279651s
+# Timestep: 7.302e-06s
+# UpdateQuantities: 4.8454e-05s
+# UpdateSmoothingLength: 1.9626e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 984000, Avg neighbor count per particle: 123
+### Check ### Total time: 1.04359e-05, current time-step: 1.94872e-06
+### Check ### Total energy: 1, (internal: 1, kinetic: 3.32175e-07, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(7) 0.00804205s
+
+# domain::sync: 0.00150968s
+# FindNeighbors: 0.00212797s
+# Density: 0.000407122s
+# EquationOfState: 1.8072e-05s
+# mpi::synchronizeHalos: 3.737e-06s
+# IAD: 0.000602102s
+# mpi::synchronizeHalos: 5.617e-06s
+# MomentumEnergyIAD: 0.00157883s
+# Timestep: 6.031e-06s
+# UpdateQuantities: 4.721e-05s
+# UpdateSmoothingLength: 2.1067e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 1.25795e-05, current time-step: 2.14359e-06
+### Check ### Total energy: 1, (internal: 1, kinetic: 4.75772e-07, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(8) 0.0063303s
+
+# domain::sync: 0.00149788s
+# FindNeighbors: 0.0021657s
+# Density: 0.000401864s
+# EquationOfState: 1.723e-05s
+# mpi::synchronizeHalos: 4.836e-06s
+# IAD: 0.00061312s
+# mpi::synchronizeHalos: 5.256e-06s
+# MomentumEnergyIAD: 0.00156635s
+# Timestep: 4.85e-06s
+# UpdateQuantities: 4.992e-05s
+# UpdateSmoothingLength: 1.7999e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 1.49374e-05, current time-step: 2.35795e-06
+### Check ### Total energy: 1, (internal: 0.999999, kinetic: 6.62223e-07, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(9) 0.00634785s
+
+# domain::sync: 0.00154847s
+# FindNeighbors: 0.00217252s
+# Density: 0.000403141s
+# EquationOfState: 1.8592e-05s
+# mpi::synchronizeHalos: 4.203e-06s
+# IAD: 0.000601553s
+# mpi::synchronizeHalos: 4.793e-06s
+# MomentumEnergyIAD: 0.00155646s
+# Timestep: 5.13e-06s
+# UpdateQuantities: 4.9585e-05s
+# UpdateSmoothingLength: 2.2216e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 1.75312e-05, current time-step: 2.59374e-06
+### Check ### Total energy: 1, (internal: 0.999999, kinetic: 9.02256e-07, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(10) 0.0063899s
+
+# domain::sync: 0.00150716s
+# FindNeighbors: 0.00230128s
+# Density: 0.000522342s
+# EquationOfState: 1.8065e-05s
+# mpi::synchronizeHalos: 6.482e-06s
+# IAD: 0.00079802s
+# mpi::synchronizeHalos: 7.031e-06s
+# MomentumEnergyIAD: 0.00252715s
+# Timestep: 5.726e-06s
+# UpdateQuantities: 4.9369e-05s
+# UpdateSmoothingLength: 2.0829e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 984000, Avg neighbor count per particle: 123
+### Check ### Total time: 2.03843e-05, current time-step: 2.85312e-06
+### Check ### Total energy: 1, (internal: 0.999999, kinetic: 1.20832e-06, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(11) 0.0077664s
+
+# domain::sync: 0.00149979s
+# FindNeighbors: 0.00212852s
+# Density: 0.000396149s
+# EquationOfState: 1.8939e-05s
+# mpi::synchronizeHalos: 3.639e-06s
+# IAD: 0.000606942s
+# mpi::synchronizeHalos: 6.096e-06s
+# MomentumEnergyIAD: 0.00155383s
+# Timestep: 8.721e-06s
+# UpdateQuantities: 5.1619e-05s
+# UpdateSmoothingLength: 2.1121e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 2.35227e-05, current time-step: 3.13843e-06
+### Check ### Total energy: 1, (internal: 0.999998, kinetic: 1.60079e-06, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(12) 0.0062986s
+
+# domain::sync: 0.00149797s
+# FindNeighbors: 0.00217437s
+# Density: 0.000397492s
+# EquationOfState: 1.7674e-05s
+# mpi::synchronizeHalos: 6.532e-06s
+# IAD: 0.000609357s
+# mpi::synchronizeHalos: 5.007e-06s
+# MomentumEnergyIAD: 0.00156557s
+# Timestep: 5.034e-06s
+# UpdateQuantities: 4.7435e-05s
+# UpdateSmoothingLength: 1.9209e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 2.6975e-05, current time-step: 3.45227e-06
+### Check ### Total energy: 1, (internal: 0.999998, kinetic: 2.09297e-06, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(13) 0.00634926s
+
+# domain::sync: 0.00147533s
+# FindNeighbors: 0.00216541s
+# Density: 0.000406817s
+# EquationOfState: 1.8083e-05s
+# mpi::synchronizeHalos: 4.996e-06s
+# IAD: 0.000602796s
+# mpi::synchronizeHalos: 6.312e-06s
+# MomentumEnergyIAD: 0.00156418s
+# Timestep: 5.269e-06s
+# UpdateQuantities: 4.8174e-05s
+# UpdateSmoothingLength: 2.0588e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 3.07725e-05, current time-step: 3.7975e-06
+### Check ### Total energy: 1, (internal: 0.999997, kinetic: 2.70896e-06, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(14) 0.00632137s
+
+# domain::sync: 0.00153856s
+# FindNeighbors: 0.00231237s
+# Density: 0.000532957s
+# EquationOfState: 1.7535e-05s
+# mpi::synchronizeHalos: 4.408e-06s
+# IAD: 0.000793115s
+# mpi::synchronizeHalos: 4.542e-06s
+# MomentumEnergyIAD: 0.00240995s
+# Timestep: 6.306e-06s
+# UpdateQuantities: 4.7586e-05s
+# UpdateSmoothingLength: 2.4357e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 984000, Avg neighbor count per particle: 123
+### Check ### Total time: 3.49497e-05, current time-step: 4.17725e-06
+### Check ### Total energy: 1, (internal: 0.999997, kinetic: 3.47628e-06, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(15) 0.00769495s
+
+# domain::sync: 0.00149424s
+# FindNeighbors: 0.00215282s
+# Density: 0.000404418s
+# EquationOfState: 1.7591e-05s
+# mpi::synchronizeHalos: 3.665e-06s
+# IAD: 0.000604956s
+# mpi::synchronizeHalos: 7.593e-06s
+# MomentumEnergyIAD: 0.00156601s
+# Timestep: 5.005e-06s
+# UpdateQuantities: 5.219e-05s
+# UpdateSmoothingLength: 1.9488e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 3.95447e-05, current time-step: 4.59497e-06
+### Check ### Total energy: 1, (internal: 0.999996, kinetic: 4.44114e-06, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(16) 0.00633203s
+
+# domain::sync: 0.00150519s
+# FindNeighbors: 0.00217889s
+# Density: 0.000403555s
+# EquationOfState: 1.8364e-05s
+# mpi::synchronizeHalos: 3.445e-06s
+# IAD: 0.000600852s
+# mpi::synchronizeHalos: 4.533e-06s
+# MomentumEnergyIAD: 0.00155097s
+# Timestep: 7.178e-06s
+# UpdateQuantities: 4.9312e-05s
+# UpdateSmoothingLength: 1.742e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 4.45992e-05, current time-step: 5.05447e-06
+### Check ### Total energy: 1, (internal: 0.999994, kinetic: 5.63111e-06, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(17) 0.00634352s
+
+# domain::sync: 0.00147913s
+# FindNeighbors: 0.00218025s
+# Density: 0.000403389s
+# EquationOfState: 1.8121e-05s
+# mpi::synchronizeHalos: 3.484e-06s
+# IAD: 0.0005982s
+# mpi::synchronizeHalos: 5.871e-06s
+# MomentumEnergyIAD: 0.00155839s
+# Timestep: 6.521e-06s
+# UpdateQuantities: 4.8359e-05s
+# UpdateSmoothingLength: 2.2369e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 5.01591e-05, current time-step: 5.55992e-06
+### Check ### Total energy: 1, (internal: 0.999993, kinetic: 7.09945e-06, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(18) 0.00632691s
+
+# domain::sync: 0.00151923s
+# FindNeighbors: 0.00232254s
+# Density: 0.000528875s
+# EquationOfState: 2.6814e-05s
+# mpi::synchronizeHalos: 4.886e-06s
+# IAD: 0.000787136s
+# mpi::synchronizeHalos: 4.881e-06s
+# MomentumEnergyIAD: 0.00227257s
+# Timestep: 5.52e-06s
+# UpdateQuantities: 4.9659e-05s
+# UpdateSmoothingLength: 1.744e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 984000, Avg neighbor count per particle: 123
+### Check ### Total time: 5.6275e-05, current time-step: 6.11591e-06
+### Check ### Total energy: 1, (internal: 0.999991, kinetic: 8.90634e-06, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(19) 0.00754232s
+
+# domain::sync: 0.00150566s
+# FindNeighbors: 0.00214635s
+# Density: 0.00039877s
+# EquationOfState: 1.7637e-05s
+# mpi::synchronizeHalos: 4.844e-06s
+# IAD: 0.000610451s
+# mpi::synchronizeHalos: 5.684e-06s
+# MomentumEnergyIAD: 0.00155478s
+# Timestep: 5.037e-06s
+# UpdateQuantities: 4.8627e-05s
+# UpdateSmoothingLength: 1.929e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 6.30025e-05, current time-step: 6.7275e-06
+### Check ### Total energy: 1, (internal: 0.999989, kinetic: 1.11546e-05, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(20) 0.0063202s
+
+# domain::sync: 0.0015006s
+# FindNeighbors: 0.00218587s
+# Density: 0.000396853s
+# EquationOfState: 1.9269e-05s
+# mpi::synchronizeHalos: 4.105e-06s
+# IAD: 0.000600537s
+# mpi::synchronizeHalos: 1.068e-05s
+# MomentumEnergyIAD: 0.00154774s
+# Timestep: 5.506e-06s
+# UpdateQuantities: 5.21e-05s
+# UpdateSmoothingLength: 1.724e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 7.04027e-05, current time-step: 7.40025e-06
+### Check ### Total energy: 1, (internal: 0.999986, kinetic: 1.39017e-05, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(21) 0.00634483s
+
+# domain::sync: 0.00149148s
+# FindNeighbors: 0.00216864s
+# Density: 0.000400669s
+# EquationOfState: 1.8729e-05s
+# mpi::synchronizeHalos: 4.473e-06s
+# IAD: 0.000589482s
+# mpi::synchronizeHalos: 4.453e-06s
+# MomentumEnergyIAD: 0.0015593s
+# Timestep: 6.375e-06s
+# UpdateQuantities: 4.8174e-05s
+# UpdateSmoothingLength: 1.9087e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 7.8543e-05, current time-step: 8.14027e-06
+### Check ### Total energy: 1, (internal: 0.999983, kinetic: 1.72642e-05, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(22) 0.00631366s
+
+# domain::sync: 0.00152382s
+# FindNeighbors: 0.00231844s
+# Density: 0.00053108s
+# EquationOfState: 1.9306e-05s
+# mpi::synchronizeHalos: 4.555e-06s
+# IAD: 0.000794651s
+# mpi::synchronizeHalos: 6.785e-06s
+# MomentumEnergyIAD: 0.00219644s
+# Timestep: 5.736e-06s
+# UpdateQuantities: 4.6886e-05s
+# UpdateSmoothingLength: 2.0288e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 984000, Avg neighbor count per particle: 123
+### Check ### Total time: 8.74973e-05, current time-step: 8.9543e-06
+### Check ### Total energy: 1, (internal: 0.999979, kinetic: 2.13727e-05, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(23) 0.00747079s
+
+# domain::sync: 0.00149101s
+# FindNeighbors: 0.00218253s
+# Density: 0.000404467s
+# EquationOfState: 1.8241e-05s
+# mpi::synchronizeHalos: 4.804e-06s
+# IAD: 0.000627695s
+# mpi::synchronizeHalos: 5.613e-06s
+# MomentumEnergyIAD: 0.00164316s
+# Timestep: 6.99e-06s
+# UpdateQuantities: 4.7286e-05s
+# UpdateSmoothingLength: 1.75e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 9.73471e-05, current time-step: 9.84973e-06
+### Check ### Total energy: 1, (internal: 0.999974, kinetic: 2.64529e-05, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(24) 0.00645301s
+
+# domain::sync: 0.00151116s
+# FindNeighbors: 0.00218272s
+# Density: 0.000402479s
+# EquationOfState: 1.84e-05s
+# mpi::synchronizeHalos: 6.2e-06s
+# IAD: 0.000607154s
+# mpi::synchronizeHalos: 5.842e-06s
+# MomentumEnergyIAD: 0.00155907s
+# Timestep: 6.034e-06s
+# UpdateQuantities: 4.7813e-05s
+# UpdateSmoothingLength: 2.5178e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000108182, current time-step: 1.08347e-05
+### Check ### Total energy: 1, (internal: 0.999967, kinetic: 3.26258e-05, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(25) 0.00637493s
+
+# domain::sync: 0.00148655s
+# FindNeighbors: 0.00232959s
+# Density: 0.000523015s
+# EquationOfState: 2.1504e-05s
+# mpi::synchronizeHalos: 4.245e-06s
+# IAD: 0.000803328s
+# mpi::synchronizeHalos: 6.805e-06s
+# MomentumEnergyIAD: 0.00349633s
+# Timestep: 5.322e-06s
+# UpdateQuantities: 7.0218e-05s
+# UpdateSmoothingLength: 1.7651e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 984000, Avg neighbor count per particle: 123
+### Check ### Total time: 0.0001201, current time-step: 1.19182e-05
+### Check ### Total energy: 1, (internal: 0.99996, kinetic: 4.0144e-05, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(26) 0.00876734s
+
+# domain::sync: 0.00150637s
+# FindNeighbors: 0.00215496s
+# Density: 0.000412895s
+# EquationOfState: 1.8289e-05s
+# mpi::synchronizeHalos: 4.197e-06s
+# IAD: 0.000604397s
+# mpi::synchronizeHalos: 5.463e-06s
+# MomentumEnergyIAD: 0.00155847s
+# Timestep: 6.539e-06s
+# UpdateQuantities: 4.8609e-05s
+# UpdateSmoothingLength: 2.1429e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.00013321, current time-step: 1.311e-05
+### Check ### Total energy: 1, (internal: 0.999951, kinetic: 4.94108e-05, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(27) 0.00634431s
+
+# domain::sync: 0.00149186s
+# FindNeighbors: 0.00219411s
+# Density: 0.000396369s
+# EquationOfState: 1.7528e-05s
+# mpi::synchronizeHalos: 3.575e-06s
+# IAD: 0.000602139s
+# mpi::synchronizeHalos: 6.119e-06s
+# MomentumEnergyIAD: 0.00154701s
+# Timestep: 5.007e-06s
+# UpdateQuantities: 4.8265e-05s
+# UpdateSmoothingLength: 2.2263e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000147631, current time-step: 1.4421e-05
+### Check ### Total energy: 1, (internal: 0.999939, kinetic: 6.06425e-05, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(28) 0.0063376s
+
+# domain::sync: 0.001501s
+# FindNeighbors: 0.00219414s
+# Density: 0.000406221s
+# EquationOfState: 2.504e-05s
+# mpi::synchronizeHalos: 4.279e-06s
+# IAD: 0.000601838s
+# mpi::synchronizeHalos: 4.938e-06s
+# MomentumEnergyIAD: 0.00156143s
+# Timestep: 4.886e-06s
+# UpdateQuantities: 4.9281e-05s
+# UpdateSmoothingLength: 2.2512e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000163494, current time-step: 1.58631e-05
+### Check ### Total energy: 1, (internal: 0.999926, kinetic: 7.42904e-05, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(29) 0.00637875s
+
+# domain::sync: 0.00150644s
+# FindNeighbors: 0.00233542s
+# Density: 0.000528674s
+# EquationOfState: 1.8193e-05s
+# mpi::synchronizeHalos: 3.885e-06s
+# IAD: 0.000796848s
+# mpi::synchronizeHalos: 6.344e-06s
+# MomentumEnergyIAD: 0.00273111s
+# Timestep: 6.342e-06s
+# UpdateQuantities: 4.9308e-05s
+# UpdateSmoothingLength: 2.4652e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 984000, Avg neighbor count per particle: 123
+### Check ### Total time: 0.000180943, current time-step: 1.74494e-05
+### Check ### Total energy: 1, (internal: 0.999909, kinetic: 9.08586e-05, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(30) 0.00801015s
+
+# domain::sync: 0.0014977s
+# FindNeighbors: 0.00215658s
+# Density: 0.000402153s
+# EquationOfState: 1.9217e-05s
+# mpi::synchronizeHalos: 3.802e-06s
+# IAD: 0.000611255s
+# mpi::synchronizeHalos: 5.893e-06s
+# MomentumEnergyIAD: 0.00154884s
+# Timestep: 5.596e-06s
+# UpdateQuantities: 5.2263e-05s
+# UpdateSmoothingLength: 2.4341e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000200138, current time-step: 1.91943e-05
+### Check ### Total energy: 1, (internal: 0.999889, kinetic: 0.000111221, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(31) 0.00633087s
+
+# domain::sync: 0.0014979s
+# FindNeighbors: 0.00219459s
+# Density: 0.000397823s
+# EquationOfState: 1.7835e-05s
+# mpi::synchronizeHalos: 6.592e-06s
+# IAD: 0.000600937s
+# mpi::synchronizeHalos: 5.311e-06s
+# MomentumEnergyIAD: 0.00155568s
+# Timestep: 6.042e-06s
+# UpdateQuantities: 4.8914e-05s
+# UpdateSmoothingLength: 2.0553e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000221252, current time-step: 2.11138e-05
+### Check ### Total energy: 1, (internal: 0.999864, kinetic: 0.000135833, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(32) 0.00635531s
+
+# domain::sync: 0.00150441s
+# FindNeighbors: 0.00219601s
+# Density: 0.00039799s
+# EquationOfState: 1.7576e-05s
+# mpi::synchronizeHalos: 5.316e-06s
+# IAD: 0.000607915s
+# mpi::synchronizeHalos: 6.026e-06s
+# MomentumEnergyIAD: 0.0015517s
+# Timestep: 5.279e-06s
+# UpdateQuantities: 5.0004e-05s
+# UpdateSmoothingLength: 2.2049e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000244477, current time-step: 2.32252e-05
+### Check ### Total energy: 1, (internal: 0.999834, kinetic: 0.000165667, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(33) 0.00636734s
+
+# domain::sync: 0.00153365s
+# FindNeighbors: 0.00232852s
+# Density: 0.000537266s
+# EquationOfState: 2.0597e-05s
+# mpi::synchronizeHalos: 6.151e-06s
+# IAD: 0.000797205s
+# mpi::synchronizeHalos: 5.269e-06s
+# MomentumEnergyIAD: 0.00245816s
+# Timestep: 6.547e-06s
+# UpdateQuantities: 5.0883e-05s
+# UpdateSmoothingLength: 2.2824e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 984000, Avg neighbor count per particle: 123
+### Check ### Total time: 0.000270024, current time-step: 2.55477e-05
+### Check ### Total energy: 1, (internal: 0.999798, kinetic: 0.000201803, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(34) 0.00777016s
+
+# domain::sync: 0.00150118s
+# FindNeighbors: 0.00216324s
+# Density: 0.000399954s
+# EquationOfState: 1.7519e-05s
+# mpi::synchronizeHalos: 9.259e-06s
+# IAD: 0.000602771s
+# mpi::synchronizeHalos: 5.37e-06s
+# MomentumEnergyIAD: 0.0015559s
+# Timestep: 6.872e-06s
+# UpdateQuantities: 4.9378e-05s
+# UpdateSmoothingLength: 2.2952e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000298127, current time-step: 2.81024e-05
+### Check ### Total energy: 1, (internal: 0.999754, kinetic: 0.000246123, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(35) 0.00633771s
+
+# domain::sync: 0.00147938s
+# FindNeighbors: 0.0022086s
+# Density: 0.000396233s
+# EquationOfState: 1.7856e-05s
+# mpi::synchronizeHalos: 3.798e-06s
+# IAD: 0.000607713s
+# mpi::synchronizeHalos: 6.399e-06s
+# MomentumEnergyIAD: 0.00154954s
+# Timestep: 5.203e-06s
+# UpdateQuantities: 4.8012e-05s
+# UpdateSmoothingLength: 1.7064e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000329039, current time-step: 3.09127e-05
+### Check ### Total energy: 1, (internal: 0.9997, kinetic: 0.00029959, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(36) 0.00634336s
+
+# domain::sync: 0.00149504s
+# FindNeighbors: 0.00219137s
+# Density: 0.000397889s
+# EquationOfState: 1.832e-05s
+# mpi::synchronizeHalos: 3.93e-06s
+# IAD: 0.000606844s
+# mpi::synchronizeHalos: 7.663e-06s
+# MomentumEnergyIAD: 0.00154738s
+# Timestep: 6.101e-06s
+# UpdateQuantities: 5.0081e-05s
+# UpdateSmoothingLength: 2.4611e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000363043, current time-step: 3.40039e-05
+### Check ### Total energy: 1, (internal: 0.999636, kinetic: 0.000364282, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(37) 0.00635196s
+
+# domain::sync: 0.00147798s
+# FindNeighbors: 0.00234473s
+# Density: 0.00052323s
+# EquationOfState: 1.7392e-05s
+# mpi::synchronizeHalos: 4.989e-06s
+# IAD: 0.000801035s
+# mpi::synchronizeHalos: 7.262e-06s
+# MomentumEnergyIAD: 0.00228393s
+# Timestep: 5.541e-06s
+# UpdateQuantities: 4.9989e-05s
+# UpdateSmoothingLength: 2.2453e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 984000, Avg neighbor count per particle: 123
+### Check ### Total time: 0.000400448, current time-step: 3.74043e-05
+### Check ### Total energy: 1, (internal: 0.999558, kinetic: 0.000442503, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(38) 0.00754153s
+
+# domain::sync: 0.00147974s
+# FindNeighbors: 0.00215622s
+# Density: 0.00040972s
+# EquationOfState: 1.7445e-05s
+# mpi::synchronizeHalos: 3.514e-06s
+# IAD: 0.000610206s
+# mpi::synchronizeHalos: 5.667e-06s
+# MomentumEnergyIAD: 0.0015636s
+# Timestep: 5.595e-06s
+# UpdateQuantities: 4.5824e-05s
+# UpdateSmoothingLength: 1.8528e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000441593, current time-step: 4.11448e-05
+### Check ### Total energy: 1, (internal: 0.999462, kinetic: 0.000538289, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(39) 0.00632064s
+
+# domain::sync: 0.00147859s
+# FindNeighbors: 0.0021934s
+# Density: 0.000404969s
+# EquationOfState: 2.0075e-05s
+# mpi::synchronizeHalos: 4.761e-06s
+# IAD: 0.000609883s
+# mpi::synchronizeHalos: 5.166e-06s
+# MomentumEnergyIAD: 0.00154143s
+# Timestep: 6.242e-06s
+# UpdateQuantities: 5.0187e-05s
+# UpdateSmoothingLength: 2.291e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000486852, current time-step: 4.52593e-05
+### Check ### Total energy: 1, (internal: 0.999346, kinetic: 0.000653652, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(40) 0.00634054s
+
+# domain::sync: 0.00149559s
+# FindNeighbors: 0.00219767s
+# Density: 0.00039729s
+# EquationOfState: 1.7873e-05s
+# mpi::synchronizeHalos: 6.708e-06s
+# IAD: 0.000616136s
+# mpi::synchronizeHalos: 5.229e-06s
+# MomentumEnergyIAD: 0.00155181s
+# Timestep: 6.455e-06s
+# UpdateQuantities: 4.7236e-05s
+# UpdateSmoothingLength: 1.7637e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000536637, current time-step: 4.97852e-05
+### Check ### Total energy: 1, (internal: 0.999207, kinetic: 0.000793011, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(41) 0.00636451s
+
+# domain::sync: 0.00146942s
+# FindNeighbors: 0.00233434s
+# Density: 0.000524994s
+# EquationOfState: 2.1084e-05s
+# mpi::synchronizeHalos: 4.18e-06s
+# IAD: 0.00079701s
+# mpi::synchronizeHalos: 6.791e-06s
+# MomentumEnergyIAD: 0.00221036s
+# Timestep: 5.858e-06s
+# UpdateQuantities: 5.1028e-05s
+# UpdateSmoothingLength: 1.802e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 984000, Avg neighbor count per particle: 123
+### Check ### Total time: 0.000591401, current time-step: 5.47637e-05
+### Check ### Total energy: 1, (internal: 0.999039, kinetic: 0.000961244, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(42) 0.00744622s
+
+# domain::sync: 0.0015089s
+# FindNeighbors: 0.00216896s
+# Density: 0.000398164s
+# EquationOfState: 1.8229e-05s
+# mpi::synchronizeHalos: 4.757e-06s
+# IAD: 0.000602472s
+# mpi::synchronizeHalos: 5.016e-06s
+# MomentumEnergyIAD: 0.00155726s
+# Timestep: 5.986e-06s
+# UpdateQuantities: 4.9354e-05s
+# UpdateSmoothingLength: 1.7597e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000651641, current time-step: 6.02401e-05
+### Check ### Total energy: 1, (internal: 0.998833, kinetic: 0.00116693, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(43) 0.00634102s
+
+# domain::sync: 0.00148948s
+# FindNeighbors: 0.0022127s
+# Density: 0.000406052s
+# EquationOfState: 1.866e-05s
+# mpi::synchronizeHalos: 5.761e-06s
+# IAD: 0.000604531s
+# mpi::synchronizeHalos: 6.512e-06s
+# MomentumEnergyIAD: 0.00155508s
+# Timestep: 5.011e-06s
+# UpdateQuantities: 4.7624e-05s
+# UpdateSmoothingLength: 1.9994e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000717905, current time-step: 6.62641e-05
+### Check ### Total energy: 1, (internal: 0.998586, kinetic: 0.00141421, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(44) 0.00637532s
+
+# domain::sync: 0.00148023s
+# FindNeighbors: 0.00220762s
+# Density: 0.00040197s
+# EquationOfState: 1.7728e-05s
+# mpi::synchronizeHalos: 5.203e-06s
+# IAD: 0.000604308s
+# mpi::synchronizeHalos: 6.013e-06s
+# MomentumEnergyIAD: 0.00154703s
+# Timestep: 5.532e-06s
+# UpdateQuantities: 5.81e-05s
+# UpdateSmoothingLength: 2.0736e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000790795, current time-step: 7.28905e-05
+### Check ### Total energy: 1, (internal: 0.998288, kinetic: 0.00171238, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(45) 0.00635736s
+
+# domain::sync: 0.0015027s
+# FindNeighbors: 0.00233325s
+# Density: 0.000533202s
+# EquationOfState: 1.7779e-05s
+# mpi::synchronizeHalos: 4.195e-06s
+# IAD: 0.000806826s
+# mpi::synchronizeHalos: 6.932e-06s
+# MomentumEnergyIAD: 0.00214725s
+# Timestep: 6.547e-06s
+# UpdateQuantities: 5.4157e-05s
+# UpdateSmoothingLength: 1.924e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 984000, Avg neighbor count per particle: 123
+### Check ### Total time: 0.000870975, current time-step: 8.01795e-05
+### Check ### Total energy: 1, (internal: 0.997928, kinetic: 0.0020716, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(46) 0.00743556s
+
+# domain::sync: 0.00151564s
+# FindNeighbors: 0.00216652s
+# Density: 0.000398948s
+# EquationOfState: 1.9959e-05s
+# mpi::synchronizeHalos: 5.062e-06s
+# IAD: 0.000604011s
+# mpi::synchronizeHalos: 6.645e-06s
+# MomentumEnergyIAD: 0.00153993s
+# Timestep: 8.056e-06s
+# UpdateQuantities: 4.7797e-05s
+# UpdateSmoothingLength: 2.4022e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.000959172, current time-step: 8.81975e-05
+### Check ### Total energy: 1, (internal: 0.99749, kinetic: 0.00250986, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(47) 0.00634107s
+
+# domain::sync: 0.00150437s
+# FindNeighbors: 0.00221762s
+# Density: 0.000405256s
+# EquationOfState: 1.8437e-05s
+# mpi::synchronizeHalos: 5.351e-06s
+# IAD: 0.000602145s
+# mpi::synchronizeHalos: 7.757e-06s
+# MomentumEnergyIAD: 0.00154156s
+# Timestep: 4.983e-06s
+# UpdateQuantities: 4.9308e-05s
+# UpdateSmoothingLength: 2.3079e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.00105619, current time-step: 9.70172e-05
+### Check ### Total energy: 1, (internal: 0.996964, kinetic: 0.00303544, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(48) 0.00638264s
+
+# domain::sync: 0.00150283s
+# FindNeighbors: 0.00221081s
+# Density: 0.000398254s
+# EquationOfState: 1.7983e-05s
+# mpi::synchronizeHalos: 4.182e-06s
+# IAD: 0.000600134s
+# mpi::synchronizeHalos: 6.523e-06s
+# MomentumEnergyIAD: 0.00155348s
+# Timestep: 6.986e-06s
+# UpdateQuantities: 5.1481e-05s
+# UpdateSmoothingLength: 2.1031e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 749712, Avg neighbor count per particle: 93
+### Check ### Total time: 0.00116291, current time-step: 0.000106719
+### Check ### Total energy: 1, (internal: 0.996332, kinetic: 0.00366739, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(49) 0.00637672s
+
+# domain::sync: 0.00150642s
+# FindNeighbors: 0.00235189s
+# Density: 0.000541489s
+# EquationOfState: 1.8468e-05s
+# mpi::synchronizeHalos: 4.586e-06s
+# IAD: 0.00080206s
+# mpi::synchronizeHalos: 4.862e-06s
+# MomentumEnergyIAD: 0.00213895s
+# Timestep: 6.602e-06s
+# UpdateQuantities: 5.0992e-05s
+# UpdateSmoothingLength: 2.3569e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 974880, Avg neighbor count per particle: 121
+### Check ### Total time: 0.0012803, current time-step: 0.000117391
+### Check ### Total energy: 1, (internal: 0.995569, kinetic: 0.00443039, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(50) 0.00745291s
+
+# domain::sync: 0.00150619s
+# FindNeighbors: 0.00221627s
+# Density: 0.000403203s
+# EquationOfState: 1.7042e-05s
+# mpi::synchronizeHalos: 5.436e-06s
+# IAD: 0.00061084s
+# mpi::synchronizeHalos: 4.885e-06s
+# MomentumEnergyIAD: 0.00157645s
+# Timestep: 9.891e-06s
+# UpdateQuantities: 4.8633e-05s
+# UpdateSmoothingLength: 2.1696e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 752328, Avg neighbor count per particle: 94
+### Check ### Total time: 0.00140943, current time-step: 0.00012913
+### Check ### Total energy: 1, (internal: 0.994655, kinetic: 0.0053445, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(51) 0.0064232s
+
+# domain::sync: 0.00149876s
+# FindNeighbors: 0.00221847s
+# Density: 0.00041001s
+# EquationOfState: 1.7285e-05s
+# mpi::synchronizeHalos: 5.355e-06s
+# IAD: 0.000593884s
+# mpi::synchronizeHalos: 5.243e-06s
+# MomentumEnergyIAD: 0.00154554s
+# Timestep: 5.639e-06s
+# UpdateQuantities: 4.9155e-05s
+# UpdateSmoothingLength: 1.8346e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 744000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.00155147, current time-step: 0.000142043
+### Check ### Total energy: 1, (internal: 0.993549, kinetic: 0.00645022, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(52) 0.00637057s
+
+# domain::sync: 0.00150162s
+# FindNeighbors: 0.00234412s
+# Density: 0.000525833s
+# EquationOfState: 1.6523e-05s
+# mpi::synchronizeHalos: 4.64e-06s
+# IAD: 0.000791855s
+# mpi::synchronizeHalos: 5.084e-06s
+# MomentumEnergyIAD: 0.00289877s
+# Timestep: 6.419e-06s
+# UpdateQuantities: 6.0261e-05s
+# UpdateSmoothingLength: 1.899e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 943056, Avg neighbor count per particle: 117
+### Check ### Total time: 0.00170772, current time-step: 0.000156247
+### Check ### Total energy: 0.999999, (internal: 0.99223, kinetic: 0.00776965, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(53) 0.00817831s
+
+# domain::sync: 0.00151696s
+# FindNeighbors: 0.00217455s
+# Density: 0.000436435s
+# EquationOfState: 1.7485e-05s
+# mpi::synchronizeHalos: 4.016e-06s
+# IAD: 0.000648728s
+# mpi::synchronizeHalos: 6.067e-06s
+# MomentumEnergyIAD: 0.001699s
+# Timestep: 7.325e-06s
+# UpdateQuantities: 4.6899e-05s
+# UpdateSmoothingLength: 1.8999e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 778536, Avg neighbor count per particle: 97
+### Check ### Total time: 0.00187959, current time-step: 0.000171872
+### Check ### Total energy: 0.999999, (internal: 0.990649, kinetic: 0.0093498, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(54) 0.00658084s
+
+# domain::sync: 0.00148525s
+# FindNeighbors: 0.00220725s
+# Density: 0.000401041s
+# EquationOfState: 1.8216e-05s
+# mpi::synchronizeHalos: 4.721e-06s
+# IAD: 0.000608866s
+# mpi::synchronizeHalos: 5.168e-06s
+# MomentumEnergyIAD: 0.00156136s
+# Timestep: 5.638e-06s
+# UpdateQuantities: 4.8864e-05s
+# UpdateSmoothingLength: 2.0945e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 750000, Avg neighbor count per particle: 93
+### Check ### Total time: 0.00206865, current time-step: 0.000189059
+### Check ### Total energy: 0.999999, (internal: 0.988762, kinetic: 0.0112367, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(55) 0.00637066s
+
+# domain::sync: 0.00150073s
+# FindNeighbors: 0.00221626s
+# Density: 0.000403206s
+# EquationOfState: 1.7906e-05s
+# mpi::synchronizeHalos: 4.451e-06s
+# IAD: 0.000597078s
+# mpi::synchronizeHalos: 4.4e-06s
+# MomentumEnergyIAD: 0.00153806s
+# Timestep: 5.403e-06s
+# UpdateQuantities: 5.1677e-05s
+# UpdateSmoothingLength: 2.2844e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 745128, Avg neighbor count per particle: 93
+### Check ### Total time: 0.00227662, current time-step: 0.000207965
+### Check ### Total energy: 0.999998, (internal: 0.98651, kinetic: 0.013488, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(56) 0.00636479s
+
+# domain::sync: 0.00152427s
+# FindNeighbors: 0.00235344s
+# Density: 0.000522654s
+# EquationOfState: 1.7481e-05s
+# mpi::synchronizeHalos: 9.36e-06s
+# IAD: 0.000786728s
+# mpi::synchronizeHalos: 5.041e-06s
+# MomentumEnergyIAD: 0.00241613s
+# Timestep: 5.512e-06s
+# UpdateQuantities: 4.6768e-05s
+# UpdateSmoothingLength: 2.4053e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 945528, Avg neighbor count per particle: 118
+### Check ### Total time: 0.00250538, current time-step: 0.000228762
+### Check ### Total energy: 0.999998, (internal: 0.983839, kinetic: 0.0161581, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(57) 0.00771421s
+
+# domain::sync: 0.0014968s
+# FindNeighbors: 0.00217688s
+# Density: 0.000437448s
+# EquationOfState: 1.7787e-05s
+# mpi::synchronizeHalos: 5.736e-06s
+# IAD: 0.000658157s
+# mpi::synchronizeHalos: 1.4165e-05s
+# MomentumEnergyIAD: 0.00169024s
+# Timestep: 5.807e-06s
+# UpdateQuantities: 5.6958e-05s
+# UpdateSmoothingLength: 1.9495e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 779184, Avg neighbor count per particle: 97
+### Check ### Total time: 0.00275701, current time-step: 0.000251638
+### Check ### Total energy: 0.999997, (internal: 0.980673, kinetic: 0.0193235, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(58) 0.00658228s
+
+# domain::sync: 0.00150384s
+# FindNeighbors: 0.00222088s
+# Density: 0.000404644s
+# EquationOfState: 1.7718e-05s
+# mpi::synchronizeHalos: 5.367e-06s
+# IAD: 0.000599788s
+# mpi::synchronizeHalos: 5.827e-06s
+# MomentumEnergyIAD: 0.00155189s
+# Timestep: 5.521e-06s
+# UpdateQuantities: 4.8753e-05s
+# UpdateSmoothingLength: 1.9685e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 747360, Avg neighbor count per particle: 93
+### Check ### Total time: 0.00303382, current time-step: 0.000276801
+### Check ### Total energy: 0.999996, (internal: 0.97694, kinetic: 0.0230562, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(59) 0.00638766s
+
+# domain::sync: 0.00151022s
+# FindNeighbors: 0.00219821s
+# Density: 0.000397864s
+# EquationOfState: 1.757e-05s
+# mpi::synchronizeHalos: 5e-06s
+# IAD: 0.000596803s
+# mpi::synchronizeHalos: 5.444e-06s
+# MomentumEnergyIAD: 0.00154133s
+# Timestep: 6.314e-06s
+# UpdateQuantities: 5.2285e-05s
+# UpdateSmoothingLength: 1.8736e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 746592, Avg neighbor count per particle: 93
+### Check ### Total time: 0.0033383, current time-step: 0.000304482
+### Check ### Total energy: 0.999995, (internal: 0.972555, kinetic: 0.0274396, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(60) 0.00635337s
+
+# domain::sync: 0.00151714s
+# FindNeighbors: 0.00235237s
+# Density: 0.000524935s
+# EquationOfState: 1.9324e-05s
+# mpi::synchronizeHalos: 4.134e-06s
+# IAD: 0.000803758s
+# mpi::synchronizeHalos: 5.674e-06s
+# MomentumEnergyIAD: 0.00223801s
+# Timestep: 5.278e-06s
+# UpdateQuantities: 5.0262e-05s
+# UpdateSmoothingLength: 2.0276e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 945480, Avg neighbor count per particle: 118
+### Check ### Total time: 0.00367323, current time-step: 0.00033493
+### Check ### Total energy: 0.999994, (internal: 0.967447, kinetic: 0.0325474, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(61) 0.00754412s
+
+# domain::sync: 0.0014994s
+# FindNeighbors: 0.00217116s
+# Density: 0.000431584s
+# EquationOfState: 1.8065e-05s
+# mpi::synchronizeHalos: 4.666e-06s
+# IAD: 0.000648711s
+# mpi::synchronizeHalos: 6.686e-06s
+# MomentumEnergyIAD: 0.0016773s
+# Timestep: 5.775e-06s
+# UpdateQuantities: 5.1542e-05s
+# UpdateSmoothingLength: 2.2228e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 775536, Avg neighbor count per particle: 96
+### Check ### Total time: 0.00404165, current time-step: 0.000368423
+### Check ### Total energy: 0.999994, (internal: 0.961516, kinetic: 0.038478, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(62) 0.00654048s
+
+# domain::sync: 0.00153609s
+# FindNeighbors: 0.00222938s
+# Density: 0.000405829s
+# EquationOfState: 1.9683e-05s
+# mpi::synchronizeHalos: 4.349e-06s
+# IAD: 0.00060068s
+# mpi::synchronizeHalos: 6.492e-06s
+# MomentumEnergyIAD: 0.00155989s
+# Timestep: 5.783e-06s
+# UpdateQuantities: 4.8296e-05s
+# UpdateSmoothingLength: 2.3781e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 748872, Avg neighbor count per particle: 93
+### Check ### Total time: 0.00444692, current time-step: 0.000405265
+### Check ### Total energy: 0.999994, (internal: 0.954687, kinetic: 0.0453072, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(63) 0.00644327s
+
+# domain::sync: 0.00151967s
+# FindNeighbors: 0.00222293s
+# Density: 0.000403213s
+# EquationOfState: 1.8249e-05s
+# mpi::synchronizeHalos: 5.679e-06s
+# IAD: 0.00060409s
+# mpi::synchronizeHalos: 7.293e-06s
+# MomentumEnergyIAD: 0.00155354s
+# Timestep: 7.291e-06s
+# UpdateQuantities: 4.7749e-05s
+# UpdateSmoothingLength: 2.2067e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 748080, Avg neighbor count per particle: 93
+### Check ### Total time: 0.00489271, current time-step: 0.000445792
+### Check ### Total energy: 0.999997, (internal: 0.946897, kinetic: 0.0530997, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(64) 0.00641517s
+
+# domain::sync: 0.0014956s
+# FindNeighbors: 0.00236071s
+# Density: 0.00052138s
+# EquationOfState: 1.7221e-05s
+# mpi::synchronizeHalos: 4.765e-06s
+# IAD: 0.000803445s
+# mpi::synchronizeHalos: 7.709e-06s
+# MomentumEnergyIAD: 0.00216179s
+# Timestep: 6.823e-06s
+# UpdateQuantities: 5.1344e-05s
+# UpdateSmoothingLength: 2.0508e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 948672, Avg neighbor count per particle: 118
+### Check ### Total time: 0.00538308, current time-step: 0.000490371
+### Check ### Total energy: 1, (internal: 0.938091, kinetic: 0.0619117, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(65) 0.00745444s
+
+# domain::sync: 0.00151264s
+# FindNeighbors: 0.0021816s
+# Density: 0.000418347s
+# EquationOfState: 1.8525e-05s
+# mpi::synchronizeHalos: 4.126e-06s
+# IAD: 0.000622536s
+# mpi::synchronizeHalos: 6.556e-06s
+# MomentumEnergyIAD: 0.00162135s
+# Timestep: 5.857e-06s
+# UpdateQuantities: 5.0734e-05s
+# UpdateSmoothingLength: 2.2341e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 764328, Avg neighbor count per particle: 95
+### Check ### Total time: 0.00592249, current time-step: 0.000539408
+### Check ### Total energy: 1.00002, (internal: 0.928239, kinetic: 0.0717761, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(66) 0.00646773s
+
+# domain::sync: 0.00152298s
+# FindNeighbors: 0.00221114s
+# Density: 0.000417196s
+# EquationOfState: 1.8313e-05s
+# mpi::synchronizeHalos: 4.176e-06s
+# IAD: 0.000619235s
+# mpi::synchronizeHalos: 1.7375e-05s
+# MomentumEnergyIAD: 0.00158822s
+# Timestep: 7.001e-06s
+# UpdateQuantities: 5.2646e-05s
+# UpdateSmoothingLength: 2.3703e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 754872, Avg neighbor count per particle: 94
+### Check ### Total time: 0.00651583, current time-step: 0.000593349
+### Check ### Total energy: 1.00004, (internal: 0.917333, kinetic: 0.0827045, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(67) 0.00648526s
+
+# domain::sync: 0.00153276s
+# FindNeighbors: 0.00222494s
+# Density: 0.000414611s
+# EquationOfState: 1.9041e-05s
+# mpi::synchronizeHalos: 5.801e-06s
+# IAD: 0.000612699s
+# mpi::synchronizeHalos: 4.997e-06s
+# MomentumEnergyIAD: 0.0015931s
+# Timestep: 6.68e-06s
+# UpdateQuantities: 5.0739e-05s
+# UpdateSmoothingLength: 2.2287e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 754056, Avg neighbor count per particle: 94
+### Check ### Total time: 0.00716852, current time-step: 0.000652683
+### Check ### Total energy: 1.00007, (internal: 0.905432, kinetic: 0.0946395, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(68) 0.0064906s
+
+# domain::sync: 0.00150534s
+# FindNeighbors: 0.00236165s
+# Density: 0.000530058s
+# EquationOfState: 1.8359e-05s
+# mpi::synchronizeHalos: 5.125e-06s
+# IAD: 0.000809558s
+# mpi::synchronizeHalos: 5.652e-06s
+# MomentumEnergyIAD: 0.00213308s
+# Timestep: 5.142e-06s
+# UpdateQuantities: 4.8479e-05s
+# UpdateSmoothingLength: 1.8203e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 948480, Avg neighbor count per particle: 118
+### Check ### Total time: 0.00788647, current time-step: 0.000717952
+### Check ### Total energy: 1.00013, (internal: 0.892608, kinetic: 0.107518, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(69) 0.00744559s
+
+# domain::sync: 0.00149908s
+# FindNeighbors: 0.0021788s
+# Density: 0.000414064s
+# EquationOfState: 1.8941e-05s
+# mpi::synchronizeHalos: 4.244e-06s
+# IAD: 0.000614904s
+# mpi::synchronizeHalos: 6.029e-06s
+# MomentumEnergyIAD: 0.00158883s
+# Timestep: 5.302e-06s
+# UpdateQuantities: 4.7111e-05s
+# UpdateSmoothingLength: 2.1165e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 754896, Avg neighbor count per particle: 94
+### Check ### Total time: 0.00867622, current time-step: 0.000789747
+### Check ### Total energy: 1.00021, (internal: 0.87903, kinetic: 0.121178, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(70) 0.00640147s
+
+# domain::sync: 0.00150292s
+# FindNeighbors: 0.0022064s
+# Density: 0.000418301s
+# EquationOfState: 1.8952e-05s
+# mpi::synchronizeHalos: 3.53e-06s
+# IAD: 0.000627821s
+# mpi::synchronizeHalos: 5.841e-06s
+# MomentumEnergyIAD: 0.00159963s
+# Timestep: 5.316e-06s
+# UpdateQuantities: 4.9294e-05s
+# UpdateSmoothingLength: 1.8556e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 757008, Avg neighbor count per particle: 94
+### Check ### Total time: 0.00954494, current time-step: 0.000868722
+### Check ### Total energy: 1.00033, (internal: 0.864894, kinetic: 0.135438, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(71) 0.00645963s
+
+# domain::sync: 0.00152495s
+# FindNeighbors: 0.00221214s
+# Density: 0.000416111s
+# EquationOfState: 1.888e-05s
+# mpi::synchronizeHalos: 3.59e-06s
+# IAD: 0.00062309s
+# mpi::synchronizeHalos: 6.452e-06s
+# MomentumEnergyIAD: 0.00159105s
+# Timestep: 6.616e-06s
+# UpdateQuantities: 4.8288e-05s
+# UpdateSmoothingLength: 1.7057e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 756432, Avg neighbor count per particle: 94
+### Check ### Total time: 0.0104389, current time-step: 0.000893965
+### Check ### Total energy: 1.00036, (internal: 0.851337, kinetic: 0.149019, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(72) 0.00647252s
+
+# domain::sync: 0.00151898s
+# FindNeighbors: 0.00235752s
+# Density: 0.000529509s
+# EquationOfState: 1.8527e-05s
+# mpi::synchronizeHalos: 5.17e-06s
+# IAD: 0.000797148s
+# mpi::synchronizeHalos: 4.881e-06s
+# MomentumEnergyIAD: 0.00210066s
+# Timestep: 7.862e-06s
+# UpdateQuantities: 4.7976e-05s
+# UpdateSmoothingLength: 2.0559e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 945696, Avg neighbor count per particle: 118
+### Check ### Total time: 0.0113412, current time-step: 0.000902346
+### Check ### Total energy: 1.00036, (internal: 0.838634, kinetic: 0.161727, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(73) 0.0074123s
+
+# domain::sync: 0.00151193s
+# FindNeighbors: 0.00218827s
+# Density: 0.000416241s
+# EquationOfState: 1.7612e-05s
+# mpi::synchronizeHalos: 5.071e-06s
+# IAD: 0.000631869s
+# mpi::synchronizeHalos: 5.673e-06s
+# MomentumEnergyIAD: 0.00159903s
+# Timestep: 6.159e-06s
+# UpdateQuantities: 5.1772e-05s
+# UpdateSmoothingLength: 1.7234e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 759920, Avg neighbor count per particle: 94
+### Check ### Total time: 0.012261, current time-step: 0.000919786
+### Check ### Total energy: 1.0004, (internal: 0.826663, kinetic: 0.173741, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(74) 0.00645356s
+
+# domain::sync: 0.00151215s
+# FindNeighbors: 0.00221394s
+# Density: 0.00043334s
+# EquationOfState: 1.9236e-05s
+# mpi::synchronizeHalos: 4.273e-06s
+# IAD: 0.000626315s
+# mpi::synchronizeHalos: 4.711e-06s
+# MomentumEnergyIAD: 0.00159569s
+# Timestep: 5.754e-06s
+# UpdateQuantities: 4.9157e-05s
+# UpdateSmoothingLength: 2.2953e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 757240, Avg neighbor count per particle: 94
+### Check ### Total time: 0.0131744, current time-step: 0.000913409
+### Check ### Total energy: 1.00039, (internal: 0.815744, kinetic: 0.184646, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(75) 0.00649021s
+
+# domain::sync: 0.00151102s
+# FindNeighbors: 0.00234271s
+# Density: 0.000519109s
+# EquationOfState: 1.9112e-05s
+# mpi::synchronizeHalos: 4.428e-06s
+# IAD: 0.000809436s
+# mpi::synchronizeHalos: 5.274e-06s
+# MomentumEnergyIAD: 0.00462408s
+# Timestep: 5.274e-06s
+# UpdateQuantities: 7.791e-05s
+# UpdateSmoothingLength: 1.7945e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 916360, Avg neighbor count per particle: 114
+### Check ### Total time: 0.0140855, current time-step: 0.000911014
+### Check ### Total energy: 1.00038, (internal: 0.805719, kinetic: 0.194666, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(76) 0.00994244s
+
+# domain::sync: 0.00150245s
+# FindNeighbors: 0.00218057s
+# Density: 0.000430083s
+# EquationOfState: 1.7767e-05s
+# mpi::synchronizeHalos: 4.478e-06s
+# IAD: 0.000644202s
+# mpi::synchronizeHalos: 1.5621e-05s
+# MomentumEnergyIAD: 0.00165813s
+# Timestep: 5.756e-06s
+# UpdateQuantities: 4.7386e-05s
+# UpdateSmoothingLength: 1.8339e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 782184, Avg neighbor count per particle: 97
+### Check ### Total time: 0.0150003, current time-step: 0.000914804
+### Check ### Total energy: 1.00038, (internal: 0.796477, kinetic: 0.203907, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(77) 0.00653003s
+
+# domain::sync: 0.00150681s
+# FindNeighbors: 0.00221817s
+# Density: 0.000427787s
+# EquationOfState: 2.1221e-05s
+# mpi::synchronizeHalos: 4.655e-06s
+# IAD: 0.000639665s
+# mpi::synchronizeHalos: 5.28e-06s
+# MomentumEnergyIAD: 0.00161389s
+# Timestep: 6.37e-06s
+# UpdateQuantities: 4.9449e-05s
+# UpdateSmoothingLength: 2.4605e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 762192, Avg neighbor count per particle: 95
+### Check ### Total time: 0.0159232, current time-step: 0.000922909
+### Check ### Total energy: 1.00039, (internal: 0.788009, kinetic: 0.212382, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(78) 0.00652056s
+
+# domain::sync: 0.001514s
+# FindNeighbors: 0.00221755s
+# Density: 0.000420404s
+# EquationOfState: 1.7839e-05s
+# mpi::synchronizeHalos: 4.587e-06s
+# IAD: 0.000631118s
+# mpi::synchronizeHalos: 4.352e-06s
+# MomentumEnergyIAD: 0.00161978s
+# Timestep: 5.922e-06s
+# UpdateQuantities: 4.6313e-05s
+# UpdateSmoothingLength: 2.033e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 759144, Avg neighbor count per particle: 94
+### Check ### Total time: 0.016863, current time-step: 0.000939848
+### Check ### Total energy: 1.00043, (internal: 0.780227, kinetic: 0.220201, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(79) 0.00650515s
+
+# domain::sync: 0.0015178s
+# FindNeighbors: 0.00236043s
+# Density: 0.00052279s
+# EquationOfState: 1.8654e-05s
+# mpi::synchronizeHalos: 4.548e-06s
+# IAD: 0.00079986s
+# mpi::synchronizeHalos: 6.49e-06s
+# MomentumEnergyIAD: 0.00250173s
+# Timestep: 6.694e-06s
+# UpdateQuantities: 4.7603e-05s
+# UpdateSmoothingLength: 2.2784e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 919752, Avg neighbor count per particle: 114
+### Check ### Total time: 0.0178216, current time-step: 0.000958622
+### Check ### Total energy: 1.00047, (internal: 0.773102, kinetic: 0.227369, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(80) 0.00781215s
+
+# domain::sync: 0.00149809s
+# FindNeighbors: 0.00217912s
+# Density: 0.000428169s
+# EquationOfState: 1.866e-05s
+# mpi::synchronizeHalos: 4.838e-06s
+# IAD: 0.000639766s
+# mpi::synchronizeHalos: 5.737e-06s
+# MomentumEnergyIAD: 0.00163657s
+# Timestep: 5.537e-06s
+# UpdateQuantities: 5.151e-05s
+# UpdateSmoothingLength: 2.2329e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 773064, Avg neighbor count per particle: 96
+### Check ### Total time: 0.0188018, current time-step: 0.000980132
+### Check ### Total energy: 1.00052, (internal: 0.766631, kinetic: 0.233885, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(81) 0.00649309s
+
+# domain::sync: 0.00151912s
+# FindNeighbors: 0.00222503s
+# Density: 0.000435794s
+# EquationOfState: 1.8102e-05s
+# mpi::synchronizeHalos: 5.396e-06s
+# IAD: 0.000638657s
+# mpi::synchronizeHalos: 1.0658e-05s
+# MomentumEnergyIAD: 0.00163094s
+# Timestep: 6.905e-06s
+# UpdateQuantities: 4.7479e-05s
+# UpdateSmoothingLength: 1.9193e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 767832, Avg neighbor count per particle: 95
+### Check ### Total time: 0.0197891, current time-step: 0.000987353
+### Check ### Total energy: 1.00053, (internal: 0.760898, kinetic: 0.239631, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(82) 0.00656002s
+
+# domain::sync: 0.0015053s
+# FindNeighbors: 0.00221719s
+# Density: 0.000427093s
+# EquationOfState: 2.0848e-05s
+# mpi::synchronizeHalos: 6.539e-06s
+# IAD: 0.000645033s
+# mpi::synchronizeHalos: 5.215e-06s
+# MomentumEnergyIAD: 0.0016123s
+# Timestep: 7.407e-06s
+# UpdateQuantities: 4.7571e-05s
+# UpdateSmoothingLength: 1.8522e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 763200, Avg neighbor count per particle: 95
+### Check ### Total time: 0.0208081, current time-step: 0.00101902
+### Check ### Total energy: 1.0006, (internal: 0.755703, kinetic: 0.244892, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(83) 0.00651833s
+
+# domain::sync: 0.00152911s
+# FindNeighbors: 0.00234995s
+# Density: 0.000530352s
+# EquationOfState: 2.6338e-05s
+# mpi::synchronizeHalos: 6.007e-06s
+# IAD: 0.000798062s
+# mpi::synchronizeHalos: 5.395e-06s
+# MomentumEnergyIAD: 0.00219218s
+# Timestep: 5.186e-06s
+# UpdateQuantities: 4.9098e-05s
+# UpdateSmoothingLength: 1.8084e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 921800, Avg neighbor count per particle: 115
+### Check ### Total time: 0.02186, current time-step: 0.00105189
+### Check ### Total energy: 1.00067, (internal: 0.751066, kinetic: 0.249604, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(84) 0.0075135s
+
+# domain::sync: 0.00152091s
+# FindNeighbors: 0.00218096s
+# Density: 0.000432196s
+# EquationOfState: 1.8495e-05s
+# mpi::synchronizeHalos: 3.433e-06s
+# IAD: 0.000645162s
+# mpi::synchronizeHalos: 5.612e-06s
+# MomentumEnergyIAD: 0.001634s
+# Timestep: 7.681e-06s
+# UpdateQuantities: 5.0454e-05s
+# UpdateSmoothingLength: 1.8886e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 771176, Avg neighbor count per particle: 96
+### Check ### Total time: 0.0229418, current time-step: 0.00108175
+### Check ### Total energy: 1.00073, (internal: 0.746915, kinetic: 0.253812, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(85) 0.00652162s
+
+# domain::sync: 0.00152376s
+# FindNeighbors: 0.00221884s
+# Density: 0.000433552s
+# EquationOfState: 1.6857e-05s
+# mpi::synchronizeHalos: 4.058e-06s
+# IAD: 0.000652112s
+# mpi::synchronizeHalos: 7.482e-06s
+# MomentumEnergyIAD: 0.00164557s
+# Timestep: 7.183e-06s
+# UpdateQuantities: 4.8447e-05s
+# UpdateSmoothingLength: 2.05e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 769480, Avg neighbor count per particle: 96
+### Check ### Total time: 0.0240329, current time-step: 0.00109109
+### Check ### Total energy: 1.00074, (internal: 0.743181, kinetic: 0.257556, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(86) 0.00658125s
+
+# domain::sync: 0.00157286s
+# FindNeighbors: 0.00222528s
+# Density: 0.000429716s
+# EquationOfState: 1.845e-05s
+# mpi::synchronizeHalos: 6.088e-06s
+# IAD: 0.000647274s
+# mpi::synchronizeHalos: 4.881e-06s
+# MomentumEnergyIAD: 0.00163028s
+# Timestep: 6.753e-06s
+# UpdateQuantities: 5.1451e-05s
+# UpdateSmoothingLength: 2.1923e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 767416, Avg neighbor count per particle: 95
+### Check ### Total time: 0.0251437, current time-step: 0.00111081
+### Check ### Total energy: 1.00078, (internal: 0.739707, kinetic: 0.261071, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(87) 0.00661791s
+
+# domain::sync: 0.00151699s
+# FindNeighbors: 0.00235195s
+# Density: 0.000529113s
+# EquationOfState: 2.4586e-05s
+# mpi::synchronizeHalos: 7.227e-06s
+# IAD: 0.000795237s
+# mpi::synchronizeHalos: 4.925e-06s
+# MomentumEnergyIAD: 0.00212823s
+# Timestep: 5.95e-06s
+# UpdateQuantities: 4.7218e-05s
+# UpdateSmoothingLength: 2.3801e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 923104, Avg neighbor count per particle: 115
+### Check ### Total time: 0.0262772, current time-step: 0.00113354
+### Check ### Total energy: 1.00083, (internal: 0.736313, kinetic: 0.264513, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(88) 0.00743794s
+
+# domain::sync: 0.00153071s
+# FindNeighbors: 0.00218222s
+# Density: 0.000436698s
+# EquationOfState: 1.7419e-05s
+# mpi::synchronizeHalos: 4.206e-06s
+# IAD: 0.000644691s
+# mpi::synchronizeHalos: 6.05e-06s
+# MomentumEnergyIAD: 0.00164704s
+# Timestep: 7.557e-06s
+# UpdateQuantities: 5.6517e-05s
+# UpdateSmoothingLength: 1.99e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 770056, Avg neighbor count per particle: 96
+### Check ### Total time: 0.0274141, current time-step: 0.00113685
+### Check ### Total energy: 1.00083, (internal: 0.732954, kinetic: 0.267875, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(89) 0.00655585s
+
+# domain::sync: 0.00173594s
+# FindNeighbors: 0.00222786s
+# Density: 0.000432315s
+# EquationOfState: 1.8729e-05s
+# mpi::synchronizeHalos: 4.858e-06s
+# IAD: 0.000654626s
+# mpi::synchronizeHalos: 6.56e-06s
+# MomentumEnergyIAD: 0.00163405s
+# Timestep: 5.846e-06s
+# UpdateQuantities: 5.2922e-05s
+# UpdateSmoothingLength: 2.3155e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 771712, Avg neighbor count per particle: 96
+### Check ### Total time: 0.0285689, current time-step: 0.00115481
+### Check ### Total energy: 1.00083, (internal: 0.72952, kinetic: 0.271309, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(90) 0.00679966s
+
+# domain::sync: 0.00152405s
+# FindNeighbors: 0.00222298s
+# Density: 0.000440775s
+# EquationOfState: 1.9202e-05s
+# mpi::synchronizeHalos: 4.321e-06s
+# IAD: 0.00064531s
+# mpi::synchronizeHalos: 5.941e-06s
+# MomentumEnergyIAD: 0.00164431s
+# Timestep: 7.599e-06s
+# UpdateQuantities: 4.8935e-05s
+# UpdateSmoothingLength: 2.4624e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 770032, Avg neighbor count per particle: 96
+### Check ### Total time: 0.0297572, current time-step: 0.00118835
+### Check ### Total energy: 1.00086, (internal: 0.725911, kinetic: 0.274946, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(91) 0.00659097s
+
+# domain::sync: 0.00151345s
+# FindNeighbors: 0.00236555s
+# Density: 0.000524191s
+# EquationOfState: 1.7236e-05s
+# mpi::synchronizeHalos: 4.372e-06s
+# IAD: 0.000790767s
+# mpi::synchronizeHalos: 5.256e-06s
+# MomentumEnergyIAD: 0.0020985s
+# Timestep: 6.503e-06s
+# UpdateQuantities: 4.7222e-05s
+# UpdateSmoothingLength: 2.0656e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 917104, Avg neighbor count per particle: 114
+### Check ### Total time: 0.0309479, current time-step: 0.00119067
+### Check ### Total energy: 1.00082, (internal: 0.72225, kinetic: 0.278569, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(92) 0.00739691s
+
+# domain::sync: 0.00155999s
+# FindNeighbors: 0.00218789s
+# Density: 0.000437962s
+# EquationOfState: 1.9293e-05s
+# mpi::synchronizeHalos: 3.905e-06s
+# IAD: 0.000651248s
+# mpi::synchronizeHalos: 6.291e-06s
+# MomentumEnergyIAD: 0.00163834s
+# Timestep: 7.419e-06s
+# UpdateQuantities: 5.3458e-05s
+# UpdateSmoothingLength: 2.1608e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 774016, Avg neighbor count per particle: 96
+### Check ### Total time: 0.0321419, current time-step: 0.00119399
+### Check ### Total energy: 1.00076, (internal: 0.718565, kinetic: 0.282199, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(93) 0.00659025s
+
+# domain::sync: 0.00157326s
+# FindNeighbors: 0.00222274s
+# Density: 0.00043608s
+# EquationOfState: 1.9157e-05s
+# mpi::synchronizeHalos: 6.242e-06s
+# IAD: 0.000646863s
+# mpi::synchronizeHalos: 4.997e-06s
+# MomentumEnergyIAD: 0.00164566s
+# Timestep: 6.247e-06s
+# UpdateQuantities: 4.933e-05s
+# UpdateSmoothingLength: 2.3601e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 772960, Avg neighbor count per particle: 96
+### Check ### Total time: 0.0333451, current time-step: 0.00120319
+### Check ### Total energy: 1.00071, (internal: 0.714983, kinetic: 0.285728, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(94) 0.006637s
+
+# domain::sync: 0.00173577s
+# FindNeighbors: 0.00222281s
+# Density: 0.000441855s
+# EquationOfState: 1.8615e-05s
+# mpi::synchronizeHalos: 3.88e-06s
+# IAD: 0.000642811s
+# mpi::synchronizeHalos: 4.824e-06s
+# MomentumEnergyIAD: 0.00163772s
+# Timestep: 7.032e-06s
+# UpdateQuantities: 5.0093e-05s
+# UpdateSmoothingLength: 1.8762e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 773480, Avg neighbor count per particle: 96
+### Check ### Total time: 0.0345638, current time-step: 0.00121874
+### Check ### Total energy: 1.00067, (internal: 0.711621, kinetic: 0.289046, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(95) 0.00678821s
+
+# domain::sync: 0.001531s
+# FindNeighbors: 0.0023319s
+# Density: 0.000520055s
+# EquationOfState: 1.7353e-05s
+# mpi::synchronizeHalos: 6.859e-06s
+# IAD: 0.000791868s
+# mpi::synchronizeHalos: 5.842e-06s
+# MomentumEnergyIAD: 0.00206857s
+# Timestep: 5.751e-06s
+# UpdateQuantities: 5.142e-05s
+# UpdateSmoothingLength: 2.2353e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 907232, Avg neighbor count per particle: 113
+### Check ### Total time: 0.0357998, current time-step: 0.00123594
+### Check ### Total energy: 1.00063, (internal: 0.708523, kinetic: 0.292106, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(96) 0.00735573s
+
+# domain::sync: 0.00153523s
+# FindNeighbors: 0.00220012s
+# Density: 0.00044246s
+# EquationOfState: 1.8616e-05s
+# mpi::synchronizeHalos: 5.203e-06s
+# IAD: 0.000653792s
+# mpi::synchronizeHalos: 5.606e-06s
+# MomentumEnergyIAD: 0.00165778s
+# Timestep: 6.496e-06s
+# UpdateQuantities: 4.9608e-05s
+# UpdateSmoothingLength: 2.3671e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 779456, Avg neighbor count per particle: 97
+### Check ### Total time: 0.0370611, current time-step: 0.0012613
+### Check ### Total energy: 1.00061, (internal: 0.705778, kinetic: 0.294829, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(97) 0.00660152s
+
+# domain::sync: 0.00175807s
+# FindNeighbors: 0.0022111s
+# Density: 0.000442222s
+# EquationOfState: 1.8495e-05s
+# mpi::synchronizeHalos: 4.281e-06s
+# IAD: 0.000647395s
+# mpi::synchronizeHalos: 5.269e-06s
+# MomentumEnergyIAD: 0.0016451s
+# Timestep: 7.888e-06s
+# UpdateQuantities: 4.7801e-05s
+# UpdateSmoothingLength: 1.9667e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 775952, Avg neighbor count per particle: 96
+### Check ### Total time: 0.0383583, current time-step: 0.00129729
+### Check ### Total energy: 1.00059, (internal: 0.703436, kinetic: 0.297155, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(98) 0.00681005s
+
+# domain::sync: 0.00176325s
+# FindNeighbors: 0.00222882s
+# Density: 0.000445505s
+# EquationOfState: 1.819e-05s
+# mpi::synchronizeHalos: 4.398e-06s
+# IAD: 0.000651136s
+# mpi::synchronizeHalos: 4.898e-06s
+# MomentumEnergyIAD: 0.00165498s
+# Timestep: 5.75e-06s
+# UpdateQuantities: 5.1317e-05s
+# UpdateSmoothingLength: 1.9131e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 778496, Avg neighbor count per particle: 97
+### Check ### Total time: 0.0397043, current time-step: 0.00134594
+### Check ### Total energy: 1.0006, (internal: 0.701598, kinetic: 0.299007, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(99) 0.00685109s
+
+# domain::sync: 0.0015133s
+# FindNeighbors: 0.00232893s
+# Density: 0.000521875s
+# EquationOfState: 1.7485e-05s
+# mpi::synchronizeHalos: 1.0442e-05s
+# IAD: 0.000786979s
+# mpi::synchronizeHalos: 5.08e-06s
+# MomentumEnergyIAD: 0.00204082s
+# Timestep: 7.919e-06s
+# UpdateQuantities: 4.8416e-05s
+# UpdateSmoothingLength: 2.1089e-05s
+### Check ### Global Tree Nodes: 512, Particles: 8000, Halos: 0
+### Check ### Computational domain: -0.5 0.5 -0.5 0.5 -0.5 0.5
+### Check ### Total Neighbors: 899720, Avg neighbor count per particle: 112
+### Check ### Total time: 0.0411139, current time-step: 0.00140961
+### Check ### Total energy: 1.00066, (internal: 0.700339, kinetic: 0.300324, gravitational: 0)
+### Check ### Focus Tree Nodes: 512, maxDepth 3
+=== Total time for iteration(100) 0.00730555s
+
+# Total execution time of 100 iterations of sedov up to t = 0.041114: 0.699426s
+real 1.18
+user 22.22
+sys 0.05
